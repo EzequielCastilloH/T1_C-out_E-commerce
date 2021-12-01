@@ -58,26 +58,27 @@
         <%
             ProductController pController = new ProductController();
             JSONArray json = pController.getProducts();
-            //out.println(json);
-            //out.println("Type of json: " + json.getClass().getSimpleName());
             ArrayList<Object> listProducts;
             listProducts = pController.jsonToList(json);
+            out.println("<div class='flex-container'>");
             for(int i=0;i<listProducts.size();i++){
                 JSONParser parser = new JSONParser();
                 JSONObject obj;
                 try {
                     obj = (JSONObject)parser.parse(String.valueOf(listProducts.get(i)));
-                    out.println("<br><br><br>Id: "+obj.get("id"));
-                    out.println("<br>Name: "+obj.get("name"));
+                    out.println("<div class='card' style='width: 18rem; height: 20rem;>");
+                    out.println("<br><h5 class='card-title'>Name: "+obj.get("name")+"</h5>");
                     out.println("<br>Description: "+obj.get("description"));
                     out.println("<br>Quantity: "+obj.get("quantity"));
                     out.println("<br>Price: "+obj.get("price"));
-                    out.println("<br>Type: "+obj.get("type"));
+                    out.println("<br>Type: "+obj.get("type")+"<hr><div align='center'><form action='buyProduct.jsp'>"
+                            + "<button class='btn-delete' name='buy' value='"+(obj.get("id"))+"'type='submit'>Buy</button></form>"
+                            + "</div></div>");
                  } catch(ParseException e) {
                     e.printStackTrace();
                  }
             }
-            
+            out.println("</div>");
         %>
     </body>
 </html>

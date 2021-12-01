@@ -34,40 +34,17 @@ public class ProductController {
         this.mongo = new MongoDB();
         this.dataBase = this.mongo.conecction(this.user, this.pass, this.databaseName);   
     }
-    
-    /*public String getProducts(){
-        String products = "";
-        try {
-            products = this.mongo.completeModel(this.col, this.dataBase);
-            return products;
-        } catch (ParseException ex) {
-            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
-            return "No data";
-        }
-    }*/
 
     public JSONArray getProducts(){
         JSONArray products;
         try {
-            products = this.mongo.completeModel(this.col, this.dataBase);
+            products = this.mongo.toJSONArray(this.col, this.dataBase);
             return products;
         } catch (ParseException ex) {
             Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
-
-    /*public JSONObject jsonToObject(String json){
-        JSONParser parser = new JSONParser();
-        JSONObject object;
-        try{
-            object = (JSONObject)parser.parse(json);
-            return object;
-        }catch(ParseException e){
-            e.printStackTrace();
-            return null;
-        }
-    }*/
 
     public ArrayList<Object> jsonToList(JSONArray json){
         ArrayList<Object> listProduct = new ArrayList<Object>();
@@ -83,4 +60,9 @@ public class ProductController {
         this.mongo.delete(this.col,"id",id,this.dataBase);
     }
     
+    public JSONArray filterOfProduct(String type) throws ParseException{
+        JSONArray find = new JSONArray();
+        find = this.mongo.findJSONArray(this.col,"type",type,this.dataBase);
+        return find;
+    }
 }
