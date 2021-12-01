@@ -16,11 +16,31 @@
 }
 .nav-bar-main .icons{
     width: 40%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-flow: row nowrap;
+}
+.nav-bar-main .icons .right{
+    width: 50%;
+}
+.nav-bar-main .icons .left{
+    width: 50%;
+    list-style: none;
+    display: flex;
+    align-content: flex-end;
+    justify-content: center;
+    flex-flow: row nowrap;
+}
+.nav-bar-main .icons .left li{
+    width: 33.3%;
+    border-left: 2px solid #537C8E;
+    text-align: center;
 }
 nav .btn-search{
     background-color: #537C8E;
     color: #EFF1E4;
-}
+}   
 nav .btn-search:hover{
     background-color: #537C8E;
     color: #EFF1E4;
@@ -36,11 +56,15 @@ nav .btn-search:hover{
 }
 .navbar-nav li{
     width: 33.33%;
+    border-right: 2px solid #EFF1E4;
 }
 .navbar-nav li a{
     text-decoration: none;
     color: #EFF1E4;
     text-align: center;
     height: 100%;
+}
+.fas{
+    color: #EFF1E4;
 }
     

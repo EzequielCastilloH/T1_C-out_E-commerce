@@ -4,6 +4,7 @@
     Author     : Adrian Burgos
 --%>
 
+<%@page import="ec.edu.espe.ecommerce.controller.ProductController"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +13,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <link rel="stylesheet" href="../css/style.css">
         <title>La Reina</title>
     </head>
@@ -23,7 +25,18 @@
               <button class="btn btn-outline-success btn-search" type="submit">Search</button>
             </form>
             <div class="icons">
-                
+                <div class="right"></div>
+                <ul class="left">
+                    <li>
+                        <i class="fas fa-tag"></i>
+                    </li>
+                    <li>
+                        <i class="fas fa-shopping-bag"></i>
+                    </li>
+                    <li>
+                        <i class="fas fa-door-closed none"></i>
+                    </li>
+                </ul>
             </div>
         </nav>
         <ul class="navbar-nav navbar nav-bar-secondary">
@@ -37,5 +50,9 @@
                 <a class="nav-link active" aria-current="page" href="#">Cakes</a>
             </li>
         </ul>
+        <%
+            ProductController pController = new ProductController();
+            out.println(pController.getProducts());
+        %>
     </body>
 </html>
