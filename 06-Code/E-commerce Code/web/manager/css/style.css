@@ -1,0 +1,129 @@
+*{
+    padding: 0px;
+}
+.nav-bar-main{
+    background-color: #2DBDBD;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-flow: row nowrap;
+}
+.nav-bar-main a{
+    width: 30%;
+}
+.nav-bar-main form{
+    width: 30%;
+}
+.nav-bar-main .icons{
+    width: 40%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-flow: row nowrap;
+}
+.nav-bar-main .icons .right{
+    width: 50%;
+}
+.nav-bar-main .icons .left{
+    width: 50%;
+    list-style: none;
+    display: flex;
+    align-content: flex-end;
+    justify-content: center;
+    flex-flow: row nowrap;
+}
+.nav-bar-main .icons .left li{
+    width: 33.3%;
+    border-left: 2px solid #537C8E;
+    text-align: center;
+}
+nav .btn-search{
+    background-color: #537C8E;
+    color: #EFF1E4;
+}   
+nav .btn-search:hover{
+    background-color: #537C8E;
+    color: #EFF1E4;
+}
+.nav-bar-secondary{
+    background-color: #CEAE7F;
+}
+.navbar-nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row nowrap;
+}
+.navbar-nav li{
+    width: 33.33%;
+    border-right: 2px solid #EFF1E4;
+}
+.navbar-nav li a{
+    text-decoration: none;
+    color: #EFF1E4;
+    text-align: center;
+    height: 100%;
+}
+.fas{
+    color: #EFF1E4;
+}
+
+.flex-container{
+    display: flex;
+    flex-direction: wrap;
+    background-color: #865840;
+}
+
+.flex-container > div{
+    background-color: #EFF1E4;
+    width: 98%;
+    margin: 10px;
+    text-align: left;
+    line-height: 130%;
+    font-size: 30px;
+}
+
+.btn-delete {
+    display: inline-block;
+    border-radius: 4px;
+    border: none;
+    background-color: #537C8E;
+    color: #EFF1E4;
+    text-align: center;
+    font-size: 18px;
+    padding: 10px;
+    width: 100px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 7px;
+}
+
+.btn-delete:hover{
+    background-color: #CEAE7F;
+    color: #537C8E;
+}
+
+.btn-delete span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.btn-delete span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.btn-delete:hover span {
+  padding-right: 25px;
+}
+
+.btn-delete:hover span:after {
+  opacity: 1;
+  right: 0;
+}
