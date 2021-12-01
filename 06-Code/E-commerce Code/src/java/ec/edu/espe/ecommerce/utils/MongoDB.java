@@ -33,8 +33,8 @@ public class MongoDB {
     JSONArray jsonArray = new JSONArray();
     JSONParser jsonParser = new JSONParser();
 
-    private MongoDB() {
-    }
+    /*private MongoDB(){
+    }*/
     
     public static MongoDB getInstance(){
         if (instance == null) {
@@ -44,7 +44,6 @@ public class MongoDB {
     }
 
     public static MongoDatabase conecction(String user, String password, String nameOfDatabase) {
-
         String URI = "mongodb+srv://root:24681012@cluster0.cya2x.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
         try {
             uri = new MongoClientURI(URI);
@@ -60,7 +59,7 @@ public class MongoDB {
         return database;
     }
 
-    public static void save(Document document, String collection, MongoDatabase database) {
+    public static void save(Document document, String collection, MongoDatabase database){
         MongoCollection<Document> collectionDocument = database.getCollection(collection);
         collectionDocument.insertOne(document);
     }
@@ -94,7 +93,7 @@ public class MongoDB {
         collection.findOneAndDelete(filter);
     }
 
-    public static String completeModel(String col, MongoDatabase database) throws ParseException {
+    /*public static String completeModel(String col, MongoDatabase database) throws ParseException {
         String json = "";
         JSONArray jsonArray = new JSONArray();
         MongoCollection<Document> collection = database.getCollection(col);
@@ -106,6 +105,18 @@ public class MongoDB {
             json = jsonArray.toJSONString();
         }
         return json;
+    }*/
+
+    public static JSONArray completeModel(String col, MongoDatabase database) throws ParseException {
+        JSONArray jsonArray = new JSONArray();
+        MongoCollection<Document> collection = database.getCollection(col);
+        MongoCursor<Document> resultDocument = collection.find().iterator();
+        while (resultDocument.hasNext()) {
+            JSONObject jsonObject = (JSONObject) new JSONParser().parse(resultDocument.next().toJson());
+            jsonObject.remove("_id");
+            jsonArray.add(jsonObject);
+        }
+        return jsonArray;
     }
 
     public static JSONArray toJSONArray(String col, MongoDatabase database) throws ParseException {

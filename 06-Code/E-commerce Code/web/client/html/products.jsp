@@ -4,7 +4,12 @@
     Author     : Adrian Burgos
 --%>
 
+<%@page import="org.json.simple.parser.*"%>
+<%@page import="org.json.simple.*"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="ec.edu.espe.ecommerce.model.Product"%>
 <%@page import="ec.edu.espe.ecommerce.controller.ProductController"%>
+<%@page import="org.json.simple.JSONObject"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -52,7 +57,27 @@
         </ul>
         <%
             ProductController pController = new ProductController();
-            out.println(pController.getProducts());
+            JSONArray json = pController.getProducts();
+            //out.println(json);
+            //out.println("Type of json: " + json.getClass().getSimpleName());
+            ArrayList<Object> listProducts;
+            listProducts = pController.jsonToList(json);
+            for(int i=0;i<listProducts.size();i++){
+                JSONParser parser = new JSONParser();
+                JSONObject obj;
+                try {
+                    obj = (JSONObject)parser.parse(String.valueOf(listProducts.get(i)));
+                    out.println("<br><br><br>Id: "+obj.get("id"));
+                    out.println("<br>Name: "+obj.get("name"));
+                    out.println("<br>Description: "+obj.get("description"));
+                    out.println("<br>Quantity: "+obj.get("quantity"));
+                    out.println("<br>Price: "+obj.get("price"));
+                    out.println("<br>Type: "+obj.get("type"));
+                 } catch(ParseException e) {
+                    e.printStackTrace();
+                 }
+            }
+            
         %>
     </body>
 </html>
