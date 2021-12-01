@@ -78,6 +78,9 @@ public class ProductController {
         }
         return listProduct;
     }
-
+    
+    public void deleteProduct(int id){
+        this.mongo.delete(this.col,"id",id,this.dataBase);
+    }
     
 }

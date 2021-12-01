@@ -70,17 +70,21 @@ nav .btn-search:hover{
 
 .flex-container{
     display: flex;
-    flex-direction: wrap;
+    flex-wrap: wrap;
     background-color: #865840;
+    justify-content: center;
+    align-items: center;
 }
 
 .flex-container > div{
     background-color: #EFF1E4;
-    width: 98%;
-    margin: 10px;
+    width: 20%;
+    margin: 20px;
     text-align: left;
-    line-height: 130%;
-    font-size: 30px;
+    line-height: 110%;
+    font-size: 20px;
+    border-radius: 8px;
+    border:4px solid #537C8E;
 }
 
 .btn-delete {

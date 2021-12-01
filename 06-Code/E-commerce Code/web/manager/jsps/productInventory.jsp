@@ -71,16 +71,15 @@
                     out.println("<br>Description: "+obj.get("description"));
                     out.println("<br>Quantity: "+obj.get("quantity"));
                     out.println("<br>Price: "+obj.get("price"));
-                    out.println("<br>Type: "+obj.get("type")+"<hr><div align='center'><button"
-                            + " class='btn-delete'>Edit</button><button"
-                            + " class='btn-delete'>Delete</button></div></div>");
+                    out.println("<br>Type: "+obj.get("type")+"<hr><div align='center'><form action='deleteProduct.jsp'><button"
+                            + " class='btn-delete' value='"+(obj.get("id"))+"'type='submit'>Edit</button><button"
+                            + " class='btn-delete' name='delete' value='"+(obj.get("id"))+"'type='submit'>Delete</button></form>"
+                            + "</div></div>");
                  } catch(ParseException e) {
                     e.printStackTrace();
                  }
             }
-            
         %>
         </div>
-        
     </body>
 </html>
