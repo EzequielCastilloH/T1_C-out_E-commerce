@@ -81,6 +81,19 @@ public class MongoDB {
         }
         return find;
     }
+    
+    public static JSONArray findJSONArray(String col, String key, Object value, MongoDatabase database) throws ParseException{
+        JSONArray json = new JSONArray();
+        MongoCollection<Document> collections = database.getCollection(col);
+        FindIterable<Document> iterable = collections.find(gte(key, value));
+        MongoCursor<Document> cursor = iterable.iterator();
+        while (cursor.hasNext()) {
+            JSONObject jsonObject = (JSONObject) new JSONParser().parse(cursor.next().toJson());
+            jsonObject.remove("_id");
+            json.add(jsonObject);
+        }
+        return json;
+    }
 
     public static MongoCollection findCollection(String collection, MongoDatabase database){
         MongoCollection<Document> collections = database.getCollection(collection);
@@ -93,7 +106,7 @@ public class MongoDB {
         collection.findOneAndDelete(filter);
     }
 
-    /*public static String completeModel(String col, MongoDatabase database) throws ParseException {
+    public static String completeModel(String col, MongoDatabase database) throws ParseException {
         String json = "";
         JSONArray jsonArray = new JSONArray();
         MongoCollection<Document> collection = database.getCollection(col);
@@ -105,18 +118,6 @@ public class MongoDB {
             json = jsonArray.toJSONString();
         }
         return json;
-    }*/
-
-    public static JSONArray completeModel(String col, MongoDatabase database) throws ParseException {
-        JSONArray jsonArray = new JSONArray();
-        MongoCollection<Document> collection = database.getCollection(col);
-        MongoCursor<Document> resultDocument = collection.find().iterator();
-        while (resultDocument.hasNext()) {
-            JSONObject jsonObject = (JSONObject) new JSONParser().parse(resultDocument.next().toJson());
-            jsonObject.remove("_id");
-            jsonArray.add(jsonObject);
-        }
-        return jsonArray;
     }
 
     public static JSONArray toJSONArray(String col, MongoDatabase database) throws ParseException {
