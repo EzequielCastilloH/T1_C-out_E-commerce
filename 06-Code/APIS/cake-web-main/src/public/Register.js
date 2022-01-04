@@ -17,6 +17,7 @@ const Register = () => {
     email:'',
     username: '',
     password: '',
+    rol: 'user',
   })
 
   const handleRegister = (e) => {

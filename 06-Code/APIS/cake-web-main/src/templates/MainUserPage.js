@@ -10,15 +10,16 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 
 const pages = ['Bakery', 'Desserts', 'Cake Shop'];
-const urls = ['/products/bakery','/products','/products/cakes']
+const urls = ['/products/bakery','/products/dessert','/products/cakes']
 const settings = ['Profile','Logout'];
 
 const MainUserPage = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate = useNavigate()
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -132,7 +133,15 @@ const MainUserPage = (props) => {
               >
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                    <Button key={settings.indexOf(setting)} onClick={() => {
+                      if(settings.indexOf(setting) === 0){
+                        alert('a')
+                      }else{
+                        window.localStorage.removeItem('authUser')
+                        navigate('/')
+                      }
+                    }
+                    }>{setting}</Button>
                   </MenuItem>
                 ))}
               </Menu>

@@ -13,5 +13,8 @@ router.post("/add",UserController.register)
 router.post("/addProduct", ProductController.addProduct)
 router.get("/products", ProductController.getProducts)
 router.post("/products/cakes", ProductController.getProductsByType)
+router.put("/products/update", ProductController.updatePriceProduct)
+router.delete("/products/delete", ProductController.deleteProduct)
+router.put("/products/updateprice", ProductController.updateQuantityProduct)
 
 module.exports = router

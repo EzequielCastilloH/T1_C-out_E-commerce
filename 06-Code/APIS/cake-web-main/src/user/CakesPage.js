@@ -10,11 +10,26 @@ import api from '../api/Axios'
 
 const CakesPage = () => {
     const [products, setProducts] = useState([])
+    const [user, setUser] = useState({name: '', token: '', username: ''})
+
+    useEffect(() => {
+        const userAuth = window.localStorage.getItem('authUser')
+        if(userAuth){
+            const us = JSON.parse(userAuth)
+            setUser(us)
+        }
+    },[])
+
     document.title = "Cakes"
     useEffect(() => {
         const fetchData = async () => {
             try{
-                const response = await api.post('/products/cakes',{type: 'cake'})
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`
+                    }
+                }
+                const response = await api.post('/products/cakes',{type: 'cake'},config)
                 setProducts(response.data)
             }catch(err){
                 if(err.response){
@@ -27,7 +42,7 @@ const CakesPage = () => {
             }
         }
         fetchData()
-    }, [])
+    }, [user])
 
     products.forEach(p => delete p._id)
 

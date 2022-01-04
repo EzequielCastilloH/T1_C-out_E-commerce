@@ -15,13 +15,14 @@ import axios from 'axios'
 const Login = () => {
   const theme = createTheme();
 
-  const [user, setUser] = useState({username: '', password:''})
-  
+  const [user, setUser] = useState({username: '', password:'', token: ''})
+
   const handleSubmit = (e) => {
     e.preventDefault()
     axios.post('http://localhost:8081/api/endpoints/login',user)
       .then(res => {
-        localStorage.setItem('token', res.token)
+        
+        window.localStorage.setItem('authUser', JSON.stringify(res.data))
       })
       .catch(err => {
         console.log(err)

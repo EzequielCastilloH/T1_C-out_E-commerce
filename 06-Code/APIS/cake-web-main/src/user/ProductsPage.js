@@ -11,12 +11,27 @@ import api from '../api/Axios'
 const ProductsPage = () => {
 
     const [products, setProducts] = useState([])
-    document.title = "Products"
+    const [user, setUser] = useState({name: '', token: '', username: ''})
     
+    document.title = "Products"
+
+    useEffect(() => {
+        const userAuth = window.localStorage.getItem('authUser')
+        if(userAuth){
+            const us = JSON.parse(userAuth)
+            setUser(us)
+        }
+    },[])
+        
     useEffect(() => {
         const fetchData = async () => {
             try{
-                const response = await api.get('/products')
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`
+                    }
+                }
+                const response = await api.get('/products',config)
                 setProducts(response.data)
             }catch(err){
                 if(err.response){
@@ -29,10 +44,9 @@ const ProductsPage = () => {
             }
         }
         fetchData()
-    }, [])
+    }, [user])
 
     products.forEach(p => delete p._id)
-
     return(
         <MainUserPage>
             <Grid container spacing={3} sx={{m:'5px'}}>
