@@ -12,14 +12,16 @@ import InventoryPage from './admin/Inventory'
 const App = () => {
   return(
     <BrowserRouter>
-      {/* Public Routes*/}
       <Routes>
+        {/* Public Routes*/}
         <Route path="/" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
+        {/* Paths for user*/}
         <Route path="/products" element={<MainPage/>}/>
         <Route path="/products/cakes" element={<Cakes/>}/>
         <Route path="/products/bakery" element={<Bakery/>}/>
         <Route path="/products/dessert" element={<Dessert/>}/>
+        {/* Paths for user*/}
         <Route path="/inventory" element={<InventoryPage/>}/>
       </Routes>
     </BrowserRouter>

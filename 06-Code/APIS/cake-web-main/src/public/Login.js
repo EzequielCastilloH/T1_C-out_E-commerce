@@ -9,23 +9,32 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import React,{useState} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
+import Notification from '../utils/Alert'
 import axios from 'axios'
 
 const Login = () => {
   const theme = createTheme();
 
   const [user, setUser] = useState({username: '', password:'', token: ''})
+  const [ errorMessage, setErrorMessage ] = useState('')
+  const [ notificationOpen, setOpen ] = useState(false)
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault()
     axios.post('http://localhost:8081/api/endpoints/login',user)
       .then(res => {
-        
         window.localStorage.setItem('authUser', JSON.stringify(res.data))
+        if(res.data.rol === 'user'){
+          navigate('/products')
+        }else{
+          navigate('/register')
+        }
       })
       .catch(err => {
-        console.log(err)
+        setErrorMessage('Wrong Credentials!')
+        setOpen(true)
       })
   }
 
@@ -99,6 +108,11 @@ const Login = () => {
               >
                 Sign In
               </Button>
+              {
+                notificationOpen?
+                <Notification type="error" message={errorMessage}/>:
+                <></>
+              }
               <Grid container>
                 <Grid item>
                   <Link to='/register'>

@@ -1,4 +1,4 @@
-import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -9,6 +9,8 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import React,{useState} from 'react'
 import axios from 'axios'
+import Notification from '../utils/Alert';
+import {useNavigate} from 'react-router-dom'
 
 const Register = () => {
   const theme = createTheme();
@@ -19,15 +21,20 @@ const Register = () => {
     password: '',
     rol: 'user',
   })
+  const [ message, setMessage ] = useState({msg: '', type: ''})
+  const [ open, setOpen ] = useState(false)
+  const navigate = useNavigate()
 
   const handleRegister = (e) => {
     e.preventDefault()
     axios.post('http://localhost:8081/api/endpoints/add',user)
       .then(res => {
-        console.log(res)
+        setMessage({msg: 'Done!', type:'success'})
+        setOpen(true)
       })
       .catch(err => {
-        console.log(err)
+        setMessage({msg: 'An error occurred with the registry', type:'error'})
+        setOpen(true)
       })
   }
 
@@ -109,16 +116,32 @@ const Register = () => {
                 value={user.password}
                 onChange={(event) => setUser({...user,password:event.target.value})}
               />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="success"
-                sx={{ mt: 3, mb: 2 }}
-                onClick={handleRegister}
-              >
-                Register
-              </Button>
+              {
+                open?
+                <Notification message={message.msg} type={message.type}/>:
+                <></>
+              }
+              <br/>
+              <Stack spacing={2} direction="row">
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="success"
+                  onClick={handleRegister}
+                >
+                  Register
+                </Button>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="error"
+                  onClick={() => navigate('/')}
+                >
+                  Back
+                </Button>
+              </Stack>
             </Box>
           </Box>
         </Grid>

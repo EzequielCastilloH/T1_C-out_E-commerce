@@ -7,11 +7,15 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import api from '../api/Axios'
+import ErrorPage from '../public/ErrorPage'
+import Modal from '../utils/shopModal'
 
 const BakeryPage = () => {
     const [products, setProducts] = useState([])
     const [user, setUser] = useState({name: '', rol: '' ,token: '', username: ''})
     const [rol, setRol] = useState('')
+    const [selected, setSelected] = useState({})
+    const [ isOpen, setOpen ] = useState(false)
 
     useEffect(() => {
         const userAuth = window.localStorage.getItem('authUser')
@@ -21,7 +25,7 @@ const BakeryPage = () => {
         }
     },[])
 
-    document.title = "Cakes"
+    document.title = "Bakery"
 
     useEffect(() => {
         setRol(user.rol)
@@ -69,31 +73,25 @@ const BakeryPage = () => {
                                         </Typography>
                                     </CardContent>
                                     <CardActions>
-                                        <Button size="small" variant="contained">Shop Now</Button>
+                                        <Button size="small" variant="contained" onClick={() => {setSelected(p) 
+                                        setOpen(true)}}>Shop Now</Button>
                                     </CardActions>
                                 </Card>
                             </Grid>
                         )
                     }
                 </Grid>
+                <Modal product = {selected} handleClose={() => setOpen(false)} open={isOpen}/>
             </MainUserPage>
-        )
-    }
-
-    const renderNotRol = () => {
-        return(
-            <React.Fragment>
-                ERROR
-            </React.Fragment>
         )
     }
 
     return(
         <React.Fragment>
             {
-                rol == 'user'?
+                rol === 'user'?
                 renderBakeryComponent():
-                renderNotRol()
+                <ErrorPage title = "Unauthorized page" docTitle="Unauthorized page"/>                    
             }
         </React.Fragment>
     )
