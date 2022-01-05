@@ -20,22 +20,53 @@ const Register = () => {
     username: '',
     password: '',
     rol: 'user',
-  })
+    hasError: false,
+    hasErrorN: false,
+    hasErrorP: false,
+    hasErrorU: false,
+  });
+  const emailRegexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
+  const nameRegexp = new RegExp(/[A-Za-z]+/);
   const [ message, setMessage ] = useState({msg: '', type: ''})
   const [ open, setOpen ] = useState(false)
   const navigate = useNavigate()
-
+  
   const handleRegister = (e) => {
     e.preventDefault()
     axios.post('http://localhost:8081/api/endpoints/add',user)
       .then(res => {
         setMessage({msg: 'Done!', type:'success'})
         setOpen(true)
+        
       })
       .catch(err => {
         setMessage({msg: 'An error occurred with the registry', type:'error'})
         setOpen(true)
       })
+  }
+  function handleBlur() {
+    /*
+      1. Evaluamos de manera síncrona
+      si el valor del campo no es un correo valido.
+      2. Recordar que este método se llama
+      cada vez que abandonamos el campo y evita
+      que el usuario reciba un error sin haber terminado
+      de poner el valor.
+    */
+    const hasError = !emailRegexp.test(user.email);
+    setUser((prevState) => ({ ...prevState, hasError }));
+  }
+  function handleBlurN() {
+    /*
+      1. Evaluamos de manera síncrona
+      si el valor del campo no es un correo valido.
+      2. Recordar que este método se llama
+      cada vez que abandonamos el campo y evita
+      que el usuario reciba un error sin haber terminado
+      de poner el valor.
+    */
+    const hasErrorN = !nameRegexp.test(user.name);
+    setUser((prevState) => ({ ...prevState, hasErrorN }));
   }
 
   return (
@@ -80,8 +111,21 @@ const Register = () => {
                 autoComplete="name"
                 value ={user.name}
                 onChange={(event) => setUser({...user,name: event.target.value})}
+                
+                onBlur={handleBlurN} 
+                
+                 aria-errormessage="nameErrorID"
+                 aria-invalid={user.hasErrorN}
                 autoFocus
               />
+              <p
+                 id="msgID"
+                aria-live="assertive"
+                style={{ visibility: user.hasErrorN ? "visible" : "hidden" }}
+               >
+                 Please enter a valid name
+                </p>
+              
               <TextField
                 margin="normal"
                 required
@@ -89,11 +133,24 @@ const Register = () => {
                 id="email"
                 label="Email"
                 name="email"
+               
                 autoComplete="email"
                 value={user.email}
                 onChange={(event) => setUser({...user,email: event.target.value})}
+                onBlur={handleBlur} 
+                
+                 aria-errormessage="emailErrorID"
+                 aria-invalid={user.hasError}
               />
+              <p
+        id="msgID"
+        aria-live="assertive"
+        style={{ visibility: user.hasError ? "visible" : "hidden" }}
+      >
+        Please enter a valid email
+      </p>
               <TextField
+                
                 margin="normal"
                 required
                 fullWidth
