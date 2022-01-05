@@ -13,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import {Link, useNavigate} from 'react-router-dom'
 
 const pages = ['Inventory', 'Invoices'];
-const urls = ['/products','/products/invoices']
+const urls = ['/inventory','/invoice']
 const settings = ['Profile','Logout'];
 
 const MainAdminPage = (props) => {
