@@ -1,5 +1,6 @@
 const UserController = require('../controllers/users')
 const ProductController = require('../controllers/products')
+const InvoiceController = require('../controllers/invoices')
 const express = require('express')
 
 const router = express.Router()
@@ -16,5 +17,8 @@ router.post("/products/cakes", ProductController.getProductsByType)
 router.put("/products/update", ProductController.updatePriceProduct)
 router.delete("/products/delete", ProductController.deleteProduct)
 router.put("/products/updateprice", ProductController.updateQuantityProduct)
+
+//EndPoints for invoices
+router.get("/invoice", InvoiceController.getInvoice)
 
 module.exports = router

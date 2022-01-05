@@ -6,6 +6,7 @@ import MainPage from './user/ProductsPage'
 import Cakes from './user/CakesPage'
 import Bakery from './user/BakeryPage'
 import Dessert from './user/DessertsPage'
+import InvoicePage from './admin/Invoices'
 import axios from 'axios'
 import InventoryPage from './admin/Inventory'
 
@@ -21,8 +22,9 @@ const App = () => {
         <Route path="/products/cakes" element={<Cakes/>}/>
         <Route path="/products/bakery" element={<Bakery/>}/>
         <Route path="/products/dessert" element={<Dessert/>}/>
-        {/* Paths for user*/}
+        {/* Paths for admin*/}
         <Route path="/inventory" element={<InventoryPage/>}/>
+        <Route path="/invoice" element={<InvoicePage/>}/>
       </Routes>
     </BrowserRouter>
   )
