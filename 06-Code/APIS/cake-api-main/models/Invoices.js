@@ -9,3 +9,9 @@ const Invoiceschema = new Schema({
 })
 
 module.exports = Invoice = mongoose.model('Invoice',Invoiceschema)
+
+/*
+    Tomas el producto
+    guardas en invoice
+    actualizas la cantidad del producto en products
+*/

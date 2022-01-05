@@ -1,22 +1,44 @@
 import React, {useState, useEffect} from 'react'
 import MainAdminPage from '../templates/MainAdminPage'
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import api from '../api/Axios'
+import ErrorPage from '../public/ErrorPage'
+import Modal from '../utils/EditModal'
+import { brown } from '@mui/material/colors';
+import { styled } from '@mui/material/styles';
 
 const InventoryPage = () => {
 
     const [products, setProducts] = useState([])
+    const [ rol, setRol ] = useState('')
+    const [selected, setSelected] = useState({})
+    const [user, setUser] = useState({name: '', rol: '' ,token: '', username: ''})
+    const [ isOpen, setOpen ] = useState(false)
+
     document.title = "Products"
     
     useEffect(() => {
+        const userAuth = window.localStorage.getItem('authUser')
+        if(userAuth){
+            const us = JSON.parse(userAuth)
+            setUser(us)
+        }
+    },[])
+
+    useEffect(() => {
+        setRol(user.rol)
         const fetchData = async () => {
             try{
-                const response = await api.get('/products')
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`
+                    }
+                }
+                const response = await api.get('/products',config)
                 setProducts(response.data)
             }catch(err){
                 if(err.response){
@@ -29,41 +51,66 @@ const InventoryPage = () => {
             }
         }
         fetchData()
-    }, [])
+    }, [user])
 
     products.forEach(p => delete p._id)
 
+    const ColorButtonEdit = styled(Button)(({ theme }) => ({
+        color: theme.palette.getContrastText(brown[400]),
+        backgroundColor: brown[400],
+        '&:hover': {
+          backgroundColor: brown[700],
+        },
+    }))
+    
+    const renderProductsComponent = () => {
+        return(
+            <MainAdminPage>
+                <Grid container spacing={3} sx={{m:'5px'}}>
+                    {
+                        products.map(p => 
+                            <Grid item xs={4}>
+                                <Card sx={{ maxWidth: 550 }}>
+                                    <center>
+                                        <CardContent>
+                                            <Typography variant="h5" component="div">
+                                                {p.name}
+                                            </Typography>
+                                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                                {p.description}
+                                            </Typography>
+                                            <Typography variant="body2">
+                                                Price: ${p.price} 
+                                            </Typography>
+                                            <Typography variant="body2">
+                                                Quantity: {p.quantity}
+                                            </Typography>
+                                        </CardContent>
+                                        <ColorButtonEdit size="small" variant="contained" onClick={() => {
+                                            setSelected(p)
+                                            setOpen(true)
+                                        }}>Edit</ColorButtonEdit>
+                                        <br/>
+                                    </center>
+                                    <br/>
+                                </Card>
+                            </Grid>
+                        )
+                    }
+                </Grid>
+                <Modal product={selected} user={user} handleClose={() => setOpen(false)} open={isOpen}/>
+            </MainAdminPage>
+        )
+    }
+
     return(
-        <MainAdminPage>
-            <Grid container spacing={3} sx={{m:'5px'}}>
-                {
-                    products.map(p => 
-                        <Grid item xs={4}>
-                            <Card sx={{ maxWidth: 550 }}>
-                                <CardContent>
-                                    <Typography variant="h5" component="div">
-                                        {p.name}
-                                    </Typography>
-                                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                        {p.description}
-                                    </Typography>
-                                    <Typography variant="body2">
-                                        Price: ${p.price} 
-                                    </Typography>
-                                    <Typography variant="body2">
-                                        Quantity: {p.quantity}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small" variant="contained" color="secondary">Add</Button>
-                                    <Button size="small" variant="contained">Edit</Button>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                    )
-                }
-            </Grid>
-        </MainAdminPage>
+        <React.Fragment>
+            {
+                rol === 'admin'?
+                renderProductsComponent():
+                <ErrorPage title = "Unauthorized page" docTitle="Unauthorized page"/>  
+            }
+        </React.Fragment>
     )
 }
 

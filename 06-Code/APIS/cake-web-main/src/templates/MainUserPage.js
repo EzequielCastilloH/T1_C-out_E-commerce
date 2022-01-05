@@ -12,9 +12,9 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {Link, useNavigate} from 'react-router-dom'
 
-const pages = ['Bakery', 'Desserts', 'Cake Shop'];
-const urls = ['/products/bakery','/products/dessert','/products/cakes']
-const settings = ['Profile','Logout'];
+const pages = ['Home','Bakery', 'Desserts', 'Cake Shop'];
+const urls = ['/products','/products/bakery','/products/dessert','/products/cakes']
+const settings = ['Logout'];
 
 const MainUserPage = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -35,6 +35,8 @@ const MainUserPage = (props) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+
 
   return (
     <React.Fragment>
@@ -134,12 +136,8 @@ const MainUserPage = (props) => {
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseNavMenu}>
                     <Button key={settings.indexOf(setting)} onClick={() => {
-                      if(settings.indexOf(setting) === 0){
-                        alert('a')
-                      }else{
                         window.localStorage.removeItem('authUser')
                         navigate('/')
-                      }
                     }
                     }>{setting}</Button>
                   </MenuItem>

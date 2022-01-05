@@ -10,7 +10,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 
 const pages = ['Inventory', 'Invoices'];
 const urls = ['/products','/products/invoices']
@@ -19,6 +19,7 @@ const settings = ['Profile','Logout'];
 const MainAdminPage = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate = useNavigate()
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -132,8 +133,12 @@ const MainAdminPage = (props) => {
               >
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
+                      <Button key={settings.indexOf(setting)} onClick={() => {
+                        window.localStorage.removeItem('authUser')
+                        navigate('/')
+                        }
+                      }>{setting}</Button>                  
+                    </MenuItem>
                 ))}
               </Menu>
             </Box>

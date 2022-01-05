@@ -29,7 +29,7 @@ const Login = () => {
         if(res.data.rol === 'user'){
           navigate('/products')
         }else{
-          navigate('/register')
+          navigate('/inventory')
         }
       })
       .catch(err => {
