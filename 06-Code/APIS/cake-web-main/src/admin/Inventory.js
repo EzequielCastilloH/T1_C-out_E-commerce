@@ -8,8 +8,11 @@ import Grid from '@mui/material/Grid';
 import api from '../api/Axios'
 import ErrorPage from '../public/ErrorPage'
 import Modal from '../utils/EditModal'
+import AddModal from '../utils/AddModal';
 import { brown } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
 
 const InventoryPage = () => {
 
@@ -18,6 +21,7 @@ const InventoryPage = () => {
     const [selected, setSelected] = useState({})
     const [user, setUser] = useState({name: '', rol: '' ,token: '', username: ''})
     const [ isOpen, setOpen ] = useState(false)
+    const [ isOpenAdd, setOpenAdd ] = useState(false)
 
     document.title = "Products"
     
@@ -66,6 +70,13 @@ const InventoryPage = () => {
     const renderProductsComponent = () => {
         return(
             <MainAdminPage>
+
+                <Fab color="primary" aria-label="add">
+                    <AddIcon onClick={() => {
+                        setOpenAdd(true)
+                    }}/>
+                </Fab>
+
                 <Grid container spacing={3} sx={{m:'5px'}}>
                     {
                         products.map(p => 
@@ -90,6 +101,7 @@ const InventoryPage = () => {
                                             setSelected(p)
                                             setOpen(true)
                                         }}>Edit</ColorButtonEdit>
+                                        
                                         <br/>
                                     </center>
                                     <br/>
@@ -99,6 +111,7 @@ const InventoryPage = () => {
                     }
                 </Grid>
                 <Modal product={selected} user={user} handleClose={() => setOpen(false)} open={isOpen}/>
+                <AddModal product={selected} user={user} handleClose={() => setOpenAdd(false)} open={isOpenAdd}/>
             </MainAdminPage>
         )
     }

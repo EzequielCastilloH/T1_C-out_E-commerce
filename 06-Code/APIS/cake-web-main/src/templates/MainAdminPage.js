@@ -14,7 +14,7 @@ import {Link, useNavigate} from 'react-router-dom'
 
 const pages = ['Inventory', 'Invoices'];
 const urls = ['/inventory','/invoice']
-const settings = ['Profile','Logout'];
+const settings = ['Logout'];
 
 const MainAdminPage = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);

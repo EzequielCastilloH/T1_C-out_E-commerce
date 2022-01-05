@@ -19,10 +19,7 @@ const InvoicePage = () => {
 
     const [products, setProducts] = useState([])
     const [ rol, setRol ] = useState('')
-    const [selected, setSelected] = useState({})
     const [user, setUser] = useState({name: '', rol: '' ,token: '', username: ''})
-    const [ isOpen, setOpen ] = useState(false)
-
     document.title = "Products"
     
     useEffect(() => {
@@ -58,15 +55,6 @@ const InvoicePage = () => {
     }, [user])
 
     products.forEach(p => delete p._id)
-
-    const ColorButtonEdit = styled(Button)(({ theme }) => ({
-        color: theme.palette.getContrastText(brown[400]),
-        backgroundColor: brown[400],
-        '&:hover': {
-          backgroundColor: brown[700],
-        },
-    }))
-    
     return(
         <MainAdminPage>
             <Grid container spacing={3} sx={{m:'5px'}}>
@@ -74,6 +62,7 @@ const InvoicePage = () => {
                     products.map(p => 
                         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                                     <ListItem alignItems="flex-start">
+                                        
                                         <ListItemText 
                                             primary= {p.name}
                                             secondary={
@@ -93,13 +82,13 @@ const InvoicePage = () => {
                                                 </React.Fragment>
                                             }
                                         />
+                                        
                                     </ListItem>
-                                    <Divider variant="inset" component="li" />
+                                <Divider variant="inset" component="li" />
                         </List>
                     )
                 }
             </Grid>
-            <Modal product={selected} user={user} handleClose={() => setOpen(false)} open={isOpen}/>
         </MainAdminPage>
     );
 
