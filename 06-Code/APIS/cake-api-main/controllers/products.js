@@ -91,8 +91,8 @@ const updatePriceProduct = (req, res) => {
 //Update Quantity of Product
 const updateQuantityProduct = (req, res) => {
     try{
-        let newPrice = req.body.quantity - 1
-        Product.findOneAndUpdate({name: req.body.name},{quantity: newPrice}, (err, prod) => {
+        let newQ = req.body.quantity - req.body.newQuantity
+        Product.findOneAndUpdate({name: req.body.name},{quantity: newQ}, (err, prod) => {
             err && res.status(501).send(err.message)
             res.status(200).send(prod)
         })
@@ -112,5 +112,6 @@ const deleteProduct = (req,res) => {
         res.status(404).send({error: "Product is not found"})
     }
 }
+
 
 module.exports = {addProduct, getProducts, getProductsByType, updatePriceProduct, deleteProduct, updateQuantityProduct}
