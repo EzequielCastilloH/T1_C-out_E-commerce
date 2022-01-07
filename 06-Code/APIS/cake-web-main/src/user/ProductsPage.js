@@ -93,12 +93,10 @@ const ProductsPage = () => {
                                             </Typography>
                                         </CardContent>
                                         <ColorButton variant="contained" onClick={() => {setSelected(p) 
-                                        setOpen(true)
-                                            const setDay = (e) => {
-        const today = new Date()
-        const dateShop = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`
-        return dateShop
-    }}}>Shop Now</ColorButton>
+                                            setOpen(true)
+                                            setName(p.name)
+                                            setPrice(p.price)
+                                            setQuantity(p.quantity)}}>Shop Now</ColorButton>
                                         <br/>
                                     </center>
                                     <br/>
