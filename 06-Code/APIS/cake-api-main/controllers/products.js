@@ -90,6 +90,20 @@ const updatePriceProduct = (req, res) => {
 
 //Update Quantity of Product
 const updateQuantityProduct = (req, res) => {
+    const authorization = req.get('authorization')
+    let token = ''
+    if(authorization && authorization.toLowerCase().startsWith('bearer')){
+        token = authorization.substring(7)
+    }
+    let decodedToken = {}
+    try{
+        decodedToken = jwt.verify(token,'awd')
+    }catch(e){
+        console.log(e)
+    }
+    if(!token || !decodedToken.id){
+        return res.status(401).json({error: 'token missing or invalid'})
+    }
     try{
         let newQ = req.body.quantity - req.body.newQuantity
         Product.findOneAndUpdate({name: req.body.name},{quantity: newQ}, (err, prod) => {

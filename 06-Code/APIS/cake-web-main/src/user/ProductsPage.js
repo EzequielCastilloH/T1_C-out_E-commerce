@@ -52,6 +52,10 @@ const ProductsPage = () => {
         fetchData()
     }, [user])
 
+    const [ name, setName ] = useState('')
+    const [ price, setPrice ] = useState('')
+    const [ quantity, setQuantity ] = useState('')
+
     products.forEach(p => delete p._id)
 
     const ColorButton = styled(Button)(({ theme }) => ({
@@ -62,6 +66,12 @@ const ProductsPage = () => {
         },
     }))
 
+    const setDay = (e) => {
+        const today = new Date()
+        const dateShop = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`
+        return dateShop
+    }
+    
     const renderProductsComponent = () => {
         return(
             <MainUserPage>
@@ -83,7 +93,10 @@ const ProductsPage = () => {
                                             </Typography>
                                         </CardContent>
                                         <ColorButton variant="contained" onClick={() => {setSelected(p) 
-                                        setOpen(true)}}>Shop Now</ColorButton>
+                                        setOpen(true)
+                                        setName(p.name)
+                                        setPrice(p.price)
+                                        setQuantity(p.quantity)}}>Shop Now</ColorButton>
                                         <br/>
                                     </center>
                                     <br/>
@@ -92,7 +105,7 @@ const ProductsPage = () => {
                         )
                     }
                 </Grid>
-                <Modal product = {selected} handleClose={() => setOpen(false)} open={isOpen}/>
+                <Modal user={user} name={name} price={price} quantityParam={quantity} setDay={setDay} product = {selected} handleClose={() => setOpen(false)} open={isOpen}/>
             </MainUserPage>
         )
     }
