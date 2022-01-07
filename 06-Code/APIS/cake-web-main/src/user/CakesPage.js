@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import MainUserPage from '../templates/MainUserPage'
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -12,10 +11,10 @@ import Modal from '../utils/shopModal'
 import { brown } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
 
-const CakesPage = () => {
+const DessertsPage = () => {
     const [products, setProducts] = useState([])
     const [user, setUser] = useState({name: '', rol: '' ,token: '', username: ''})
-    const [rol, setRol] = useState('')
+    const [rol, setRol ] = useState('')
     const [selected, setSelected] = useState({})
     const [ isOpen, setOpen ] = useState(false)
 
@@ -27,7 +26,7 @@ const CakesPage = () => {
         }
     },[])
 
-    document.title = "Cakes"
+    document.title = "Desserts"
 
     useEffect(() => {
         setRol(user.rol)
@@ -53,6 +52,10 @@ const CakesPage = () => {
         fetchData()
     }, [user])
 
+    const [ name, setName ] = useState('')
+    const [ price, setPrice ] = useState('')
+    const [ quantity, setQuantity ] = useState('')
+
     products.forEach(p => delete p._id)
 
     const ColorButton = styled(Button)(({ theme }) => ({
@@ -63,7 +66,13 @@ const CakesPage = () => {
         },
     }))
 
-    const renderCakeComponent = () => {
+    const setDay = (e) => {
+        const today = new Date()
+        const dateShop = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`
+        return dateShop
+    }
+
+    const renderDessertComponent = () => {
         return(
             <MainUserPage>
                 <Grid container spacing={3} sx={{m:'5px'}}>
@@ -84,8 +93,11 @@ const CakesPage = () => {
                                             </Typography>
                                         </CardContent>
                                         <ColorButton variant="contained" onClick={() => {setSelected(p) 
-                                        setOpen(true)}}>Shop Now</ColorButton>
-                                        <br/>
+                                            setOpen(true)
+                                            setName(p.name)
+                                            setPrice(p.price)
+                                            setQuantity(p.quantity)}}>Shop Now</ColorButton>
+                                            <br/>
                                     </center>
                                     <br/>
                                 </Card>
@@ -93,7 +105,7 @@ const CakesPage = () => {
                         )
                     }
                 </Grid>
-                <Modal product = {selected} handleClose={() => setOpen(false)} open={isOpen}/>
+                <Modal user={user} name={name} price={price} quantityParam={quantity} setDay={setDay} product = {selected} handleClose={() => setOpen(false)} open={isOpen}/>
             </MainUserPage>
         )
     }
@@ -101,12 +113,12 @@ const CakesPage = () => {
     return(
         <React.Fragment>
             {
-                rol == 'user'?
-                renderCakeComponent():
-                <ErrorPage title = "Unauthorized page" docTitle="Unauthorized page"/>   
+                rol === 'user'?
+                renderDessertComponent():
+                <ErrorPage title = "Unauthorized page" docTitle="Unauthorized page"/> 
             }
         </React.Fragment>
     )
 }
 
-export default CakesPage
+export default DessertsPage

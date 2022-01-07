@@ -6,6 +6,7 @@ import Modal from '@mui/material/Modal';
 import Input from '@mui/material/Input';
 import Stack from '@mui/material/Stack';
 import api from '../api/Axios'
+import Notification from './Alert';
 
 const ShopModal = (props) => {
     const { user, product, open, handleClose, setDay, name, price, quantityParam } = props
@@ -13,6 +14,9 @@ const ShopModal = (props) => {
     const [ prodName, setName] = useState('')
     const [ newQuantity, setQ ] = useState(0)
     const [ day, setDate ] = useState('')
+    const [ message, setMessage ] = useState('')
+    const [ type, setType ] = useState('')
+    const [ isOpen, setIsOpen ] = useState(true)
 
     useEffect(() => {
         setName(name)
@@ -52,16 +56,21 @@ const ShopModal = (props) => {
         }
         api.post('/invoice/add',productToInvoice,config)
         .then(res => {
+            setMessage('Successful purchase!')
+            setType('success')
             api.put('/products/update',{name: productToInvoice.name, newQuantity: productToInvoice.newQuantity, quantity: quantityParam},config)
             .then(response => {
-                console.log(response.data)
+                setMessage('Successful purchase!')
+                setType('success')
             })
             .catch(error => {
-                console.log(error)
+                setMessage('There were problems when making the purchase')
+                setType('error')
             })
         })
         .catch(err => {
-            console.log(err)
+            setMessage('There were problems when making the purchase')
+            setType('error')
         })
     }
 
@@ -92,6 +101,12 @@ const ShopModal = (props) => {
                         <Button variant="contained" color="success" onClick={onShopClick}>Shop</Button>
                         <Button variant="contained" color="error" onClick={handleClose}>Close</Button>
                     </Stack>
+                    <br/>
+                    {
+                        isOpen?
+                        <Notification type={type} message={message} />:
+                        <></>
+                    }
                 </center>
             </Box>
         </Modal>

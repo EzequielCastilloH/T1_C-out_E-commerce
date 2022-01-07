@@ -11,10 +11,10 @@ import Modal from '../utils/shopModal'
 import { brown } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
 
-const BakeryPage = () => {
+const DessertsPage = () => {
     const [products, setProducts] = useState([])
     const [user, setUser] = useState({name: '', rol: '' ,token: '', username: ''})
-    const [rol, setRol] = useState('')
+    const [rol, setRol ] = useState('')
     const [selected, setSelected] = useState({})
     const [ isOpen, setOpen ] = useState(false)
 
@@ -26,7 +26,7 @@ const BakeryPage = () => {
         }
     },[])
 
-    document.title = "Bakery"
+    document.title = "Desserts"
 
     useEffect(() => {
         setRol(user.rol)
@@ -52,6 +52,10 @@ const BakeryPage = () => {
         fetchData()
     }, [user])
 
+    const [ name, setName ] = useState('')
+    const [ price, setPrice ] = useState('')
+    const [ quantity, setQuantity ] = useState('')
+
     products.forEach(p => delete p._id)
 
     const ColorButton = styled(Button)(({ theme }) => ({
@@ -61,8 +65,14 @@ const BakeryPage = () => {
           backgroundColor: brown[700],
         },
     }))
-    
-    const renderBakeryComponent = () => {
+
+    const setDay = (e) => {
+        const today = new Date()
+        const dateShop = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`
+        return dateShop
+    }
+
+    const renderDessertComponent = () => {
         return(
             <MainUserPage>
                 <Grid container spacing={3} sx={{m:'5px'}}>
@@ -82,9 +92,12 @@ const BakeryPage = () => {
                                                 {p.price} $
                                             </Typography>
                                         </CardContent>
-                                        <ColorButton size="small" variant="contained" onClick={() => {setSelected(p) 
-                                        setOpen(true)}}>Shop Now</ColorButton>
-                                        <br/>
+                                        <ColorButton variant="contained" onClick={() => {setSelected(p) 
+                                            setOpen(true)
+                                            setName(p.name)
+                                            setPrice(p.price)
+                                            setQuantity(p.quantity)}}>Shop Now</ColorButton>
+                                            <br/>
                                     </center>
                                     <br/>
                                 </Card>
@@ -92,7 +105,7 @@ const BakeryPage = () => {
                         )
                     }
                 </Grid>
-                <Modal product = {selected} handleClose={() => setOpen(false)} open={isOpen}/>
+                <Modal user={user} name={name} price={price} quantityParam={quantity} setDay={setDay} product = {selected} handleClose={() => setOpen(false)} open={isOpen}/>
             </MainUserPage>
         )
     }
@@ -101,11 +114,11 @@ const BakeryPage = () => {
         <React.Fragment>
             {
                 rol === 'user'?
-                renderBakeryComponent():
-                <ErrorPage title = "Unauthorized page" docTitle="Unauthorized page"/>                    
+                renderDessertComponent():
+                <ErrorPage title = "Unauthorized page" docTitle="Unauthorized page"/> 
             }
         </React.Fragment>
     )
 }
 
-export default BakeryPage
+export default DessertsPage
