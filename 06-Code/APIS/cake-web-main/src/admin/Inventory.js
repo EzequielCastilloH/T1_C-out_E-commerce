@@ -71,10 +71,10 @@ const InventoryPage = () => {
         return(
             <MainAdminPage>
 
-                <Fab color="primary" aria-label="add">
+                <Fab color="primary" aria-label="add" sx={{position: 'absolute', bottom: 30, right: 90}}>
                     <AddIcon onClick={() => {
                         setOpenAdd(true)
-                    }}/>
+                    }} />
                 </Fab>
 
                 <Grid container spacing={3} sx={{m:'5px'}}>

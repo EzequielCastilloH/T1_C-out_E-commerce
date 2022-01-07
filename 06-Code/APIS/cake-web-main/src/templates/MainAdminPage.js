@@ -24,6 +24,8 @@ const MainAdminPage = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate()
+  const name = window.localStorage.getItem('name');
+
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -105,6 +107,7 @@ const MainAdminPage = (props) => {
                 color="inherit"
               >
               </IconButton>
+              
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorElNav}
@@ -166,7 +169,7 @@ const MainAdminPage = (props) => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar sx={{ bgcolor: deepOrange[300] }}>N</Avatar>
+                  <Avatar sx={{ bgcolor: deepOrange[300] }}>{name}</Avatar>
                 </IconButton>
               </Tooltip>
               <Menu
