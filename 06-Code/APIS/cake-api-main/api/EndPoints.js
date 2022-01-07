@@ -20,5 +20,6 @@ router.put("/products/updateprice", ProductController.updatePriceProduct)
 
 //EndPoints for invoices
 router.get("/invoice", InvoiceController.getInvoice)
+router.post("/invoice/add",InvoiceController.addInvoice)
 
 module.exports = router
