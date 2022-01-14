@@ -44,6 +44,7 @@ const EditModal = (props) => {
         .then(response => {
             setMessage('Successful change!')
             setType('success')
+            alert("Prices changed succesfully")
         })
         .catch(error => {
             setMessage('There were problems when making the changes')

@@ -33,7 +33,7 @@ const Login = () => {
         }
       })
       .catch(err => {
-        setErrorMessage('Wrong Credentials!')
+        setErrorMessage('Wrong username or password!')
         setOpen(true)
       })
   }

@@ -114,13 +114,14 @@ const Register = () => {
   const handleRegister = (e) => {
    
     if(errorName === true || errorEmail === true || errorUserName === true || errorPassword === true ){
-      alert("Campos llenados incorrectamente")
+      alert("Wrong fields")
     }else{
     e.preventDefault()
     axios.post('http://localhost:8081/api/endpoints/add',user)
       .then(res => {
         
         setMessage({msg: 'Done!', type:'success'})
+        alert("Register Success")
         setOpen(true)
         
       })
@@ -131,11 +132,6 @@ const Register = () => {
       })
     }
     }
-
-  
-
-
-  
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>

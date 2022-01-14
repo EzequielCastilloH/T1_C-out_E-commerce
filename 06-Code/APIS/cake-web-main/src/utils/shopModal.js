@@ -62,6 +62,7 @@ const ShopModal = (props) => {
             .then(response => {
                 setMessage('Successful purchase!')
                 setType('success')
+                alert("Shop Success")
             })
             .catch(error => {
                 setMessage('There were problems when making the purchase')

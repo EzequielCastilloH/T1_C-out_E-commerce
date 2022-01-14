@@ -42,6 +42,7 @@ const AddModal = (props) => {
         .then(response => {
             setMessage('Successful change!')
             setType('success')
+            alert("Add Success")
         })
         .catch(error => {
             setMessage('There were problems when making the changes')
