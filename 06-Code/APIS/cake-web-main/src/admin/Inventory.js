@@ -59,6 +59,9 @@ const InventoryPage = () => {
 
     products.forEach(p => delete p._id)
 
+    const [ name, setName ] = useState('')
+    const [ price, setPrice ] = useState('')
+
     const ColorButtonEdit = styled(Button)(({ theme }) => ({
         color: theme.palette.getContrastText(brown[400]),
         backgroundColor: brown[400],
@@ -99,6 +102,8 @@ const InventoryPage = () => {
                                         </CardContent>
                                         <ColorButtonEdit size="small" variant="contained" onClick={() => {
                                             setSelected(p)
+                                            setName(p.name)
+                                            setPrice(p.price)                                          
                                             setOpen(true)
                                         }}>Edit</ColorButtonEdit>
                                         
@@ -110,7 +115,7 @@ const InventoryPage = () => {
                         )
                     }
                 </Grid>
-                <Modal product={selected} user={user} handleClose={() => setOpen(false)} open={isOpen}/>
+                <Modal product={selected} name={name} price={price} user={user} handleClose={() => setOpen(false)} open={isOpen}/>
                 <AddModal product={selected} user={user} handleClose={() => setOpenAdd(false)} open={isOpenAdd}/>
             </MainAdminPage>
         )
