@@ -13,31 +13,129 @@ import Notification from '../utils/Alert';
 import {useNavigate} from 'react-router-dom'
 
 const Register = () => {
+
+  const [name, setName] = React.useState("")
+  const [email, setEmail] = React.useState("")
+  const [userName, setUserName] = React.useState("")
+  const [password, setPassword] = React.useState("")
+  
+  const expressions  = {
+    username: /^[a-zA-Z0-9_-]{4,16}$/, // Letras, numeros, guion y guion_bajo
+    name: /^[a-zA-ZÀ-ÿ\s]{1,30}$/, // Letras y espacios, pueden llevar acentos.
+    password: /^.{4,17}$/, // 4 a 17 digitos.
+      email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
+  }
+
+  const [validationName, setValidationName] = useState("")
+  const [errorName, setErrorName] = useState(false)
+
+  const [validationEmail, setValidationEmail] = useState("")
+  const [errorEmail, setErrorEmail] = useState(false)
+
+  const [validationUserName, setValidationUserName] = useState("")
+  const [errorUserName, setErrorUserName] = useState(false)
+
+  const [validationPassword, setValidationPassword] = useState("")
+  const [errorPassword, setErrorPassword] = useState(false)
+
+
+  const onChangeName = (e) =>{
+    setName(e.target.value)
+    console.log(name)
+
+    if(expressions .name.test(name)){
+
+      setValidationName("Correct User")
+      setErrorName(false) 
+    }else{
+      setValidationName("Wrong Name...maximum 30 characters and only letters")
+      setErrorName(true) 
+    }
+
+  }
+
+  const onChangeEmail = (e) =>{
+    setEmail(e.target.value)
+    console.log(email)
+
+    if(expressions .email.test(email)){
+
+      setValidationEmail("Correct Email")
+      setErrorEmail(false) 
+    }else{
+      setValidationEmail("Please Enter a valid email")
+      setErrorEmail(true) 
+    }
+
+  }
+
+  const onChangeUser = (e) =>{
+    setUserName(e.target.value)
+    console.log(userName)
+
+    if(expressions .username.test(userName)){
+
+      setValidationUserName("Correct User")
+      setErrorUserName(false) 
+    }else{
+      setValidationUserName("Please Enter a valid user Max 16 characters")
+      setErrorUserName(true) 
+    }
+
+  }
+
+  const onChangePassword = (e) =>{
+    setPassword(e.target.value)
+    console.log(password)
+
+    if(expressions .password.test(password)){
+
+      setValidationPassword("Correct Password")
+      setErrorPassword(false) 
+    }else{
+      setValidationPassword("Please Enter a valid password, Max 17 digits")
+      setErrorPassword(true) 
+    }
+
+  }
+
   const theme = createTheme();
   const [user, setUser] = useState({
     name: '',
     email:'',
     username: '',
     password: '',
-    rol: 'user',
+    rol: 'user'
+
   })
   const [ message, setMessage ] = useState({msg: '', type: ''})
   const [ open, setOpen ] = useState(false)
   const navigate = useNavigate()
-
   const handleRegister = (e) => {
+   
+    if(errorName === true || errorEmail === true || errorUserName === true || errorPassword === true ){
+      alert("Campos llenados incorrectamente")
+    }else{
     e.preventDefault()
     axios.post('http://localhost:8081/api/endpoints/add',user)
       .then(res => {
+        
         setMessage({msg: 'Done!', type:'success'})
         setOpen(true)
+        
       })
       .catch(err => {
+        
         setMessage({msg: 'An error occurred with the registry', type:'error'})
         setOpen(true)
       })
-  }
+    }
+    }
 
+  
+
+
+  
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
@@ -58,6 +156,7 @@ const Register = () => {
         />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
+          
             sx={{
               my: 8,
               mx: 4,
@@ -71,47 +170,74 @@ const Register = () => {
             </Typography>
             <Box component="form" noValidate sx={{ mt: 1 }}>
               <TextField
+                
+                variant="outlined"
+                
                 margin="normal"
                 required
                 fullWidth
-                id="name"
-                label="Name"
+                error = {errorName}
+                  helperText = {validationName}
+                  onBlur={(onChangeName)}
+                label="Complete Name"
+                
                 name="name"
-                autoComplete="name"
+                
                 value ={user.name}
                 onChange={(event) => setUser({...user,name: event.target.value})}
+                
                 autoFocus
               />
+              
               <TextField
+              variant ="outlined"
+               error = {errorEmail}
+               helperText = {validationEmail}
+               onBlur={(onChangeEmail)}
                 margin="normal"
                 required
                 fullWidth
-                id="email"
+                
                 label="Email"
-                name="email"
-                autoComplete="email"
+                
+                
                 value={user.email}
                 onChange={(event) => setUser({...user,email: event.target.value})}
+               
+
               />
+               
               <TextField
+                variant ="outlined"
+                error = {errorUserName}
+                helperText = {validationUserName}
+                onBlur={(onChangeUser)}
                 margin="normal"
                 required
                 fullWidth
-                id="username"
+                
+                
                 label="Username"
                 name="username"
                 autoComplete="username"
                 value={user.username}
                 onChange = {(event) => setUser({...user,username: event.target.value})}
+              
               />
+
+               
               <TextField
+                variant="outlined"
+                error = {errorPassword}
+                helperText = {validationPassword}
+                onBlur={(onChangePassword)}
                 margin="normal"
                 required
                 fullWidth
                 name="password"
                 label="Password"
                 type="password"
-                id="password"
+                
                 autoComplete="current-password"
                 value={user.password}
                 onChange={(event) => setUser({...user,password:event.target.value})}
@@ -129,6 +255,7 @@ const Register = () => {
                   variant="contained"
                   color="success"
                   onClick={handleRegister}
+                  
                 >
                   Register
                 </Button>
