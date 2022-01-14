@@ -6,11 +6,20 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import api from '../api/Axios'
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Notification from './Alert';
 
 const AddModal = (props) => {
     const { user, open, handleClose } = props
     const [ prod, setProd ] = useState({name: ``, type: "", description: '', price: ``, quantity: ''})
+    const [ message, setMessage ] = useState('')
+    const [ type, setType ] = useState('')
+    const [ isOpen, setIsOpen ] = useState(true)
 
+    
     const style = {
         position: 'absolute',
         top: '50%',
@@ -30,13 +39,16 @@ const AddModal = (props) => {
             }
         }
         api.post('/addProduct',prod,config)
-        .then(res => {
-            console.log(res)
+        .then(response => {
+            setMessage('Successful change!')
+            setType('success')
         })
-        .catch(err => {
-            console.log(err)
+        .catch(error => {
+            setMessage('There were problems when making the changes')
+            setType('error')
         })
     }
+
 
     return(
         <Modal
@@ -50,20 +62,32 @@ const AddModal = (props) => {
                         Create a new product
                     </Typography>
                     <br/><br/>
-                    <TextField onChange={(event) => setProd({...prod,name:event.target.value})}id="outlined-basic" label="Name" variant="outlined" />
+                    <TextField onChange={(event) => setProd({...prod,name:event.target.value})}id="outlined-basic" label="Name" variant="outlined" fullWidth="true"/>
                     <br/><br/>
-                    <TextField onChange={(event) => setProd({...prod,type:event.target.value})}id="outlined-basic" label="Type" variant="outlined" />
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Type</InputLabel>
+                        <Select labelId="demo-simple-select-label" id="demo-simple-select" label="Type" variant="outlined" onChange={(event) => setProd({...prod,type:event.target.value})}>
+                        <MenuItem value="bakery">Bakery</MenuItem>
+                        <MenuItem value="dessert">Dessert</MenuItem>
+                        <MenuItem value="cake">Cake</MenuItem>
+                        </Select>
+                    </FormControl>
                     <br/><br/>
-                    <TextField onChange={(event) => setProd({...prod,description:event.target.value})}id="outlined-basic" label="Description" variant="outlined" />
+                    <TextField onChange={(event) => setProd({...prod,description:event.target.value})}id="outlined-basic" label="Description" variant="outlined" fullWidth="true"/>
                     <br/><br/>
-                    <TextField onChange={(event) => setProd({...prod,price:event.target.value})}id="outlined-basic" label="Price" variant="outlined" />
+                    <TextField onChange={(event) => setProd({...prod,price:event.target.value})}id="outlined-basic" label="Price" variant="outlined" type="number" fullWidth="true"/>
                     <br/><br/>
-                    <TextField onChange={(event) => setProd({...prod,quantity:event.target.value})}id="outlined-basic" label="Quantity" variant="outlined" />
+                    <TextField onChange={(event) => setProd({...prod,quantity:event.target.value})}id="outlined-basic" label="Quantity" variant="outlined" type="number" fullWidth="true"/>
                     <br/><br/>
                     <Stack spacing={2}>
                         <Button variant="contained" color="success" onClick={handleSaveButton}>Save</Button>
                         <Button variant="contained" color="error" onClick={handleClose}>Close</Button>
                     </Stack>
+                    {
+                        isOpen?
+                        <Notification type={type} message={message} />:
+                        <></>
+                    }
                 </center>
             </Box>
         </Modal>

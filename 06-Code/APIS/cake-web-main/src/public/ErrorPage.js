@@ -1,8 +1,11 @@
 import React from 'react'
 import Typography from '@mui/material/Typography';
+import {Link, useNavigate} from 'react-router-dom'
+import Button from '@mui/material/Button';
 
 const ErrorPage = (props) => {
     const {docTitle, title} = props
+    const navigate = useNavigate()
     document.title= docTitle 
     return(
         <React.Fragment>
@@ -11,7 +14,12 @@ const ErrorPage = (props) => {
                         {title}
                     </Typography>
                     <Typography variant="button" display="block" gutterBottom>
-                        Please try it again
+                        Please try it again <br/>
+                        <Button variant="contained" onClick={() => {
+                        window.localStorage.removeItem('authUser')
+                        navigate('/')
+                        }
+                        }>Return to the login page</Button>
                     </Typography>
                     <br/>
                     <br/>

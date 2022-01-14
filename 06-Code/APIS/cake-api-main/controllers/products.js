@@ -78,6 +78,21 @@ const getProductsByType = (req, res) => {
 
 //Update Price of Product
 const updatePriceProduct = (req, res) => {
+    const authorization = req.get('authorization')
+    let token = ''
+    if(authorization && authorization.toLowerCase().startsWith('bearer')){
+        token = authorization.substring(7)
+    }
+    let decodedToken = {}
+    try{
+        decodedToken = jwt.verify(token,'awd')
+    }catch(e){
+        console.log(e)
+    }
+    if(!token || !decodedToken.id){
+        return res.status(401).json({error: 'token missing or invalid'})
+    }
+    
     try{
         Product.findOneAndUpdate({name: req.body.name},{price: req.body.price},(err,prod) => {
             err && res.status(501).send(err.message)
@@ -117,6 +132,21 @@ const updateQuantityProduct = (req, res) => {
 
 //Delete Product
 const deleteProduct = (req,res) => {
+    const authorization = req.get('authorization')
+    let token = ''
+    if(authorization && authorization.toLowerCase().startsWith('bearer')){
+        token = authorization.substring(7)
+    }
+    let decodedToken = {}
+    try{
+        decodedToken = jwt.verify(token,'awd')
+    }catch(e){
+        console.log(e)
+    }
+    if(!token || !decodedToken.id){
+        return res.status(401).json({error: 'token missing or invalid'})
+    }
+
     try{
         Product.findOneAndRemove({name: req.body.name}, (err, prod) => {
             err && res.status(501).send(err.message)
