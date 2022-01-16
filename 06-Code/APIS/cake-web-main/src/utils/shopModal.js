@@ -58,7 +58,7 @@ const ShopModal = (props) => {
         .then(res => {
             setMessage('Successful purchase!')
             setType('success')
-            api.put('/products/update',{name: productToInvoice.name, newQuantity: productToInvoice.newQuantity, quantity: quantityParam},config)
+            api.put('/products/updateShop',{name: productToInvoice.name, newQuantity: productToInvoice.newQuantity, quantity: quantityParam},config)
             .then(response => {
                 setMessage('Successful purchase!')
                 setType('success')

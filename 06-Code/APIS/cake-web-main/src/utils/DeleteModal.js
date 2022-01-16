@@ -8,9 +8,8 @@ import Stack from '@mui/material/Stack';
 import api from '../api/Axios'
 import Notification from './Alert';
 
-const EditModal = (props) => {
-    const { product, user, open, name, price, handleClose } = props
-    const [ pPrice, setpPrice] = useState('')
+const DeleteModal = (props) => {
+    const { product, user, open, name, handleClose } = props
     const [ message, setMessage ] = useState('')
     const [ type, setType ] = useState('')
     const [ isOpen, setIsOpen ] = useState(true)
@@ -33,17 +32,16 @@ const EditModal = (props) => {
     const handleSaveButton = (e) => {
         e.preventDefault()
         const prod = {
-            name: name,
-            price: pPrice
+            name: name
         }
         const config = {
             headers: {
                 Authorization: `Bearer ${user.token}`
             }
         }
-        api.put("/products/updateprice",prod, config)
+        api.delete("/products/deleteProduct",prod, config)
         .then(response => {
-            setMessage('Successful change!')
+            setMessage('Deleted successfully!')
             setType('success')
             //alert("Prices changed succesfully")
             reload()
@@ -67,10 +65,10 @@ const EditModal = (props) => {
                         {name}
                     </Typography>
                     <br/><br/>
-                    <TextField onChange={(event) => setpPrice(event.target.value)} required placeholder={price} id="outlined-number" label="New Price" type="number" InputLabelProps={{shrink: true,}} variant="outlined" defaultValue={price}/>
+                    Are you sure you want to delete this product?
                     <br/><br/>
                     <Stack spacing={2}> 
-                        <Button variant="contained" color="success" onClick={handleSaveButton}>Save</Button>
+                        <Button variant="contained" color="success" onClick={handleSaveButton}>Yes</Button>
                         <Button variant="contained" color="error" onClick={handleClose}>Close</Button>
                     </Stack>
                     {
@@ -84,4 +82,4 @@ const EditModal = (props) => {
     )
 }
 
-export default EditModal
+export default DeleteModal

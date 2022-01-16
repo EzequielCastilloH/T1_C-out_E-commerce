@@ -120,6 +120,31 @@ const updateQuantityProduct = (req, res) => {
         return res.status(401).json({error: 'token missing or invalid'})
     }
     try{
+        Product.findOneAndUpdate({name: req.body.name},{quantity: req.body.quantity}, (err, prod) => {
+            err && res.status(501).send(err.message)
+            res.status(200).send(prod)
+        })
+    }catch(e){
+        res.status(404).send({error: "Product is not found"})
+    }
+}
+
+const updateQuantityProductShop = (req, res) => {
+    const authorization = req.get('authorization')
+    let token = ''
+    if(authorization && authorization.toLowerCase().startsWith('bearer')){
+        token = authorization.substring(7)
+    }
+    let decodedToken = {}
+    try{
+        decodedToken = jwt.verify(token,'awd')
+    }catch(e){
+        console.log(e)
+    }
+    if(!token || !decodedToken.id){
+        return res.status(401).json({error: 'token missing or invalid'})
+    }
+    try{
         let newQ = req.body.quantity - req.body.newQuantity
         Product.findOneAndUpdate({name: req.body.name},{quantity: newQ}, (err, prod) => {
             err && res.status(501).send(err.message)
@@ -158,4 +183,4 @@ const deleteProduct = (req,res) => {
 }
 
 
-module.exports = {addProduct, getProducts, getProductsByType, updatePriceProduct, deleteProduct, updateQuantityProduct}
+module.exports = {addProduct, getProducts, getProductsByType, updatePriceProduct, deleteProduct, updateQuantityProduct, updateQuantityProductShop}

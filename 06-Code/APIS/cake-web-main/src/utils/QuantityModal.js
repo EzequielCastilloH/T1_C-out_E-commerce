@@ -8,9 +8,9 @@ import Stack from '@mui/material/Stack';
 import api from '../api/Axios'
 import Notification from './Alert';
 
-const EditModal = (props) => {
-    const { product, user, open, name, price, handleClose } = props
-    const [ pPrice, setpPrice] = useState('')
+const QuantityModal = (props) => {
+    const { product, user, open, name, quantity, handleClose } = props
+    const [ pQuantity, setPQuantity ] = useState('')
     const [ message, setMessage ] = useState('')
     const [ type, setType ] = useState('')
     const [ isOpen, setIsOpen ] = useState(true)
@@ -34,14 +34,14 @@ const EditModal = (props) => {
         e.preventDefault()
         const prod = {
             name: name,
-            price: pPrice
+            quantity: pQuantity
         }
         const config = {
             headers: {
                 Authorization: `Bearer ${user.token}`
             }
         }
-        api.put("/products/updateprice",prod, config)
+        api.put("/products/update",prod, config)
         .then(response => {
             setMessage('Successful change!')
             setType('success')
@@ -67,7 +67,7 @@ const EditModal = (props) => {
                         {name}
                     </Typography>
                     <br/><br/>
-                    <TextField onChange={(event) => setpPrice(event.target.value)} required placeholder={price} id="outlined-number" label="New Price" type="number" InputLabelProps={{shrink: true,}} variant="outlined" defaultValue={price}/>
+                    <TextField onChange={(event) => setPQuantity(event.target.value)} required placeholder={quantity} id="outlined-number" label="New Quantity" type="number" InputLabelProps={{shrink: true,}} variant="outlined" defaultValue={quantity}/>
                     <br/><br/>
                     <Stack spacing={2}> 
                         <Button variant="contained" color="success" onClick={handleSaveButton}>Save</Button>
@@ -84,4 +84,4 @@ const EditModal = (props) => {
     )
 }
 
-export default EditModal
+export default QuantityModal

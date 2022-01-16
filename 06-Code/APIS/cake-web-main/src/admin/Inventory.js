@@ -13,6 +13,9 @@ import { brown } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
+import QuantityModal from '../utils/QuantityModal';
+import DeleteModal from '../utils/DeleteModal';
 
 const InventoryPage = () => {
 
@@ -22,6 +25,8 @@ const InventoryPage = () => {
     const [user, setUser] = useState({name: '', rol: '' ,token: '', username: ''})
     const [ isOpen, setOpen ] = useState(false)
     const [ isOpenAdd, setOpenAdd ] = useState(false)
+    const [ isOpenQuantity, setIsOpenQuantity ] = useState(false)
+    const [ isOpenDelete, setIsOpenDelete ] = useState(false)
 
     document.title = "Products"
     
@@ -61,6 +66,7 @@ const InventoryPage = () => {
 
     const [ name, setName ] = useState('')
     const [ price, setPrice ] = useState('')
+    const [ quantity, setQuantity ] = useState('')
 
     const ColorButtonEdit = styled(Button)(({ theme }) => ({
         color: theme.palette.getContrastText(brown[400]),
@@ -100,13 +106,25 @@ const InventoryPage = () => {
                                                 Quantity: {p.quantity}
                                             </Typography>
                                         </CardContent>
-                                        <ColorButtonEdit size="small" variant="contained" onClick={() => {
+                                        <ColorButtonEdit sx={{bottom: 5, right: 5}} size="small" variant="contained" onClick={() => {
                                             setSelected(p)
                                             setName(p.name)
-                                            setPrice(p.price)                                          
+                                            setPrice(p.price)                                       
                                             setOpen(true)
-                                        }}>Edit</ColorButtonEdit>
-                                        
+                                        }}>Price</ColorButtonEdit>
+                                        <ColorButtonEdit sx={{bottom: 5, right: -20}} size="small" variant="contained" onClick={() => {
+                                            setSelected(p)
+                                            setName(p.name)
+                                            setQuantity(p.quantity)                                      
+                                            setIsOpenQuantity(true)
+                                        }}>Quantity</ColorButtonEdit>
+                                        <Fab color="blue" aria-label="delete" size="small" sx={{bottom: 5, right: -50}}>
+                                            <DeleteIcon onClick={() => {
+                                                setSelected(p)
+                                                setName(p.name)
+                                                setIsOpenDelete(true)
+                                            }} />
+                                        </Fab>
                                         <br/>
                                     </center>
                                     <br/>
@@ -116,6 +134,8 @@ const InventoryPage = () => {
                     }
                 </Grid>
                 <Modal product={selected} name={name} price={price} user={user} handleClose={() => setOpen(false)} open={isOpen}/>
+                <QuantityModal product={selected} name={name} quantity={quantity} user={user} handleClose={() => setIsOpenQuantity(false)} open={isOpenQuantity}/>
+                <DeleteModal product={selected} name={name} user={user} handleClose={() => setIsOpenDelete(false)} open={isOpenDelete}/>
                 <AddModal product={selected} user={user} handleClose={() => setOpenAdd(false)} open={isOpenAdd}/>
             </MainAdminPage>
         )

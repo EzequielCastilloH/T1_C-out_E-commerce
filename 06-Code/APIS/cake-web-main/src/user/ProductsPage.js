@@ -96,7 +96,7 @@ const ProductsPage = () => {
                                             setOpen(true)
                                             setName(p.name)
                                             setPrice(p.price)
-                                            setQuantity(p.quantity)}}>Shop Now</ColorButton>
+                                            setQuantity(p.quantity)}}>Add to cart</ColorButton>
                                         <br/>
                                     </center>
                                     <br/>

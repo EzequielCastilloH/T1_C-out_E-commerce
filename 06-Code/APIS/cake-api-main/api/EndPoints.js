@@ -15,7 +15,8 @@ router.post("/addProduct", ProductController.addProduct)
 router.get("/products", ProductController.getProducts)
 router.post("/products/cakes", ProductController.getProductsByType)
 router.put("/products/update", ProductController.updateQuantityProduct)
-router.delete("/products/delete", ProductController.deleteProduct)
+router.put("/products/updateShop", ProductController.updateQuantityProductShop)
+router.delete("/products/deleteProduct", ProductController.deleteProduct)
 router.put("/products/updateprice", ProductController.updatePriceProduct)
 
 //EndPoints for invoices

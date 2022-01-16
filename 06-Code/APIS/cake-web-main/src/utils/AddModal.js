@@ -63,22 +63,22 @@ const AddModal = (props) => {
                         Create a new product
                     </Typography>
                     <br/><br/>
-                    <TextField onChange={(event) => setProd({...prod,name:event.target.value})}id="outlined-basic" label="Name" variant="outlined" fullWidth="true"/>
+                    <TextField onChange={(event) => setProd({...prod,name:event.target.value})}id="outlined-basic" label="Name" variant="outlined" fullWidth="true" required/>
                     <br/><br/>
                     <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">Type</InputLabel>
-                        <Select labelId="demo-simple-select-label" id="demo-simple-select" label="Type" variant="outlined" onChange={(event) => setProd({...prod,type:event.target.value})}>
+                        <Select labelId="demo-simple-select-label" id="demo-simple-select" label="Type" variant="outlined" required onChange={(event) => setProd({...prod,type:event.target.value})}>
                         <MenuItem value="bakery">Bakery</MenuItem>
                         <MenuItem value="dessert">Dessert</MenuItem>
                         <MenuItem value="cake">Cake</MenuItem>
                         </Select>
                     </FormControl>
                     <br/><br/>
-                    <TextField onChange={(event) => setProd({...prod,description:event.target.value})}id="outlined-basic" label="Description" variant="outlined" fullWidth="true"/>
+                    <TextField onChange={(event) => setProd({...prod,description:event.target.value})}id="outlined-basic" label="Description" variant="outlined" fullWidth="true" required/>
                     <br/><br/>
-                    <TextField onChange={(event) => setProd({...prod,price:event.target.value})}id="outlined-basic" label="Price" variant="outlined" type="number" fullWidth="true"/>
+                    <TextField onChange={(event) => setProd({...prod,price:event.target.value})}id="outlined-basic" label="Price" variant="outlined" type="number" fullWidth="true" required/>
                     <br/><br/>
-                    <TextField onChange={(event) => setProd({...prod,quantity:event.target.value})}id="outlined-basic" label="Quantity" variant="outlined" type="number" fullWidth="true"/>
+                    <TextField onChange={(event) => setProd({...prod,quantity:event.target.value})}id="outlined-basic" label="Quantity" variant="outlined" type="number" fullWidth="true" required/>
                     <br/><br/>
                     <Stack spacing={2}>
                         <Button variant="contained" color="success" onClick={handleSaveButton}>Save</Button>
