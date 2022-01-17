@@ -8,8 +8,12 @@ import Grid from '@mui/material/Grid';
 import api from '../api/Axios'
 import ErrorPage from '../public/ErrorPage'
 import Modal from '../utils/shopModal'
+import Box from '@mui/material/Box';
 import { brown } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import SpeedDial from '@mui/material/SpeedDial';
+import ListProducts from '../utils/ListProducts';
 
 const ProductsPage = () => {
     const [ rol, setRol ] = useState('')
@@ -17,6 +21,7 @@ const ProductsPage = () => {
     const [selected, setSelected] = useState({})
     const [user, setUser] = useState({name: '', rol: '' ,token: '', username: ''})
     const [ isOpen, setOpen ] = useState(false)
+    const [ isCartOpen, setCartOpen ] = useState(false)
 
     document.title = "Products"
 
@@ -106,6 +111,15 @@ const ProductsPage = () => {
                     }
                 </Grid>
                 <Modal user={user} name={name} price={price} quantityParam={quantity} setDay={setDay} product = {selected} handleClose={() => setOpen(false)} open={isOpen}/>
+                <Box sx={{flexGrow: 1 }}>
+                <SpeedDial
+                    ariaLabel="SpeedDial basic example"
+                    sx={{ position: 'absolute', bottom: 16, right: 16 }}
+                    icon={<ShoppingCartIcon/>}
+                    onClick={() => setCartOpen(true)}
+                />
+                </Box>
+                <ListProducts user={user} open={isCartOpen} handleClose={() => setCartOpen(false)} setDay={setDay}/>
             </MainUserPage>
         )
     }

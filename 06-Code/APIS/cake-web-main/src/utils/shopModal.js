@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState, useEffect, useContext} from 'react'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -7,25 +7,24 @@ import Input from '@mui/material/Input';
 import Stack from '@mui/material/Stack';
 import api from '../api/Axios'
 import Notification from './Alert';
+import { ProductContext } from './ProductContext';
 
 const ShopModal = (props) => {
     const { user, product, open, handleClose, setDay, name, price, quantityParam } = props
     const [ total, setTotal ] = useState(0)
     const [ prodName, setName] = useState('')
     const [ newQuantity, setQ ] = useState(0)
+    const [ prodPrice, setPrice ] = useState(0)
     const [ day, setDate ] = useState('')
     const [ message, setMessage ] = useState('')
     const [ type, setType ] = useState('')
     const [ isOpen, setIsOpen ] = useState(true)
+    const { productsToShop, setProductsToShop } = useContext(ProductContext)
 
     useEffect(() => {
         setName(name)
         setDate(setDay())
-    })
-
-    useEffect(() => {
-        const totalPrice = newQuantity*price
-        setTotal(totalPrice)
+        setPrice(price)
     })
 
     const style = {
@@ -40,16 +39,19 @@ const ShopModal = (props) => {
     };
 
     
-    const onShopClick = (e) => {
+    const onAddToShopClick = (e) => {
         e.preventDefault()
         const productToInvoice = {
             name: prodName,
-            date: day,
             newQuantity: newQuantity,
-            totalMoney: total
+            prodPrice: prodPrice,
+            quantity: quantityParam,
+            total: 0
         }
-        console.log(`cantidad: ${newQuantity}`)
-        const config = {
+        productsToShop.push(productToInvoice)
+        setMessage('Added to cart!')
+        setType('success')
+        /*const config = {
             headers: {
                 Authorization: `Bearer ${user.token}`
             }
@@ -72,7 +74,7 @@ const ShopModal = (props) => {
         .catch(err => {
             setMessage('There were problems when making the purchase')
             setType('error')
-        })
+        })*/
     }
 
     return(
@@ -99,7 +101,7 @@ const ShopModal = (props) => {
                     </Typography>
                     <br/><br/>
                     <Stack spacing={2}>
-                        <Button variant="contained" color="success" onClick={onShopClick}>Shop</Button>
+                        <Button variant="contained" color="success" onClick={onAddToShopClick}>Add to Shopping Cart</Button>
                         <Button variant="contained" color="error" onClick={handleClose}>Close</Button>
                     </Stack>
                     <br/>

@@ -16,6 +16,7 @@ import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import { deepOrange} from '@mui/material/colors';
 
+
 const pages = ['Home','Bakery', 'Desserts', 'Cake Shop'];
 const urls = ['/products','/products/bakery','/products/dessert','/products/cakes']
 const settings = ['Logout'];
@@ -25,7 +26,6 @@ const MainUserPage = (props) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate()
   const name = window.localStorage.getItem('name');
-
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -202,7 +202,7 @@ const MainUserPage = (props) => {
           </Toolbar>
         </Container>
       </AppBar>
-      {props.children}
+        {props.children}
     </React.Fragment>
   );
 };

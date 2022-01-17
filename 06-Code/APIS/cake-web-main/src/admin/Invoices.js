@@ -1,26 +1,20 @@
 import React, {useState, useEffect} from 'react'
 import MainAdminPage from '../templates/MainAdminPage'
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
 import api from '../api/Axios'
-import ErrorPage from '../public/ErrorPage'
-import Modal from '../utils/EditModal'
-import { brown } from '@mui/material/colors';
-import { styled } from '@mui/material/styles';
+import Stack from '@mui/material/Stack';
+import Card from '@mui/material/Card';
+import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
+import Container from '@mui/material/Container';
+import Chip from '@mui/material/Chip';
 
 const InvoicePage = () => {
-
     const [products, setProducts] = useState([])
     const [ rol, setRol ] = useState('')
     const [user, setUser] = useState({name: '', rol: '' ,token: '', username: ''})
-    document.title = "Products"
+
+    document.title = "Inovices"
     
     useEffect(() => {
         const userAuth = window.localStorage.getItem('authUser')
@@ -57,38 +51,26 @@ const InvoicePage = () => {
     products.forEach(p => delete p._id)
     return(
         <MainAdminPage>
-            <Grid container spacing={3} sx={{m:'5px'}}>
+            <Container sx={{display: 'flex', alignContent: 'center', justifyContent:' center', width: 900}}>
+                <br/><br/>
                 {
-                    products.map(p => 
-                        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-                                    <ListItem alignItems="flex-start">
-                                        
-                                        <ListItemText 
-                                            primary= {p.name}
-                                            secondary={
-                                                <React.Fragment>
-                                                    <Typography variant="body2">
-                                                        Date:                                                        
-                                                    </Typography>
-                                                        {p.date}
-                                                    <Typography variant="body2">
-                                                        Quantity:                                                        
-                                                    </Typography>
-                                                        {p.quantity}
-                                                    <Typography variant="body2">
-                                                        Total amount:                                                        
-                                                    </Typography>
-                                                        {p.totalMoney}
-                                                </React.Fragment>
-                                            }
-                                        />
-                                        
-                                    </ListItem>
-                                <Divider variant="inset" component="li" />
-                        </List>
+                    products.map(p =>
+                        <Card sx={{mr: 6, mt: 10, width: 200, padding: 2}}>
+                            <Typography variant="h6" gutterBottom component="div">
+                                <b>{`Date: ${p.date}`}</b>
+                            </Typography>
+                            {
+                                p.products.map(pr => 
+                                <List component="nav">
+                                    <ListItemText primary={`Product Name: ${pr.name}`} secondary={`Units: ${pr.newQuantity} ; Total: ${pr.total}`}/>
+                                </List>
+                                )
+                            }
+                        <Chip label={`Subtotal: ${p.subTotal}`} color="success" variant="contained" /><br/><br/>
+                       </Card>
                     )
                 }
-            </Grid>
+            </Container>
         </MainAdminPage>
     );
 
