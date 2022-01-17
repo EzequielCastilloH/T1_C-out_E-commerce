@@ -10,6 +10,31 @@ import Notification from './Alert';
 import { ProductContext } from './ProductContext';
 
 const ShopModal = (props) => {
+
+    const [quantityP, setQuantity] = React.useState("")
+
+    const expressions  = {
+        
+        quantity: /^[0-9]{1,5}$/, // numeros
+      }
+
+      const [validationQuantity, setValidationQuantity] = useState("")
+      const [errorQuantity, setErrorQuantity] = useState(false)
+      
+      const onChangeQuantity = (e) =>{
+        setQuantity(e.target.value)
+        console.log(quantityP)
+    
+        if(expressions .quantity.test(quantityP)){
+    
+          setValidationQuantity("Correct Quantity")
+          setErrorQuantity(false) 
+        }else{
+          setValidationQuantity("Wrong Quantity...maximum 5 characters and only numbers")
+          setErrorQuantity(true) 
+        }
+    
+      }
     const { user, product, open, handleClose, setDay, name, price, quantityParam } = props
     const [ total, setTotal ] = useState(0)
     const [ prodName, setName] = useState('')
@@ -43,6 +68,9 @@ const ShopModal = (props) => {
     }
     
     const onAddToShopClick = (e) => {
+        if(errorQuantity === true ){
+            alert("Wrong fields")
+          }else{
         e.preventDefault()
         const productToInvoice = {
             name: prodName,
@@ -54,7 +82,9 @@ const ShopModal = (props) => {
         productsToShop.push(productToInvoice)
         setMessage('Added to cart!')
         setType('success')
+        reload()
     }
+}
     
     return(
         <Modal
@@ -78,6 +108,10 @@ const ShopModal = (props) => {
                     onChange={(event) => setQ(event.target.value)} 
                     inputProps={{ inputMode: 'numeric', pattern: '[0-9]*', min: 1, max: product.quantity}}  
                     type='number' 
+                    variant = "outlined"
+                    error = {errorQuantity}
+                    helperText = {validationQuantity}
+                    onBlur={(onChangeQuantity)}
                     />
                     <br/><br/>
                     <Typography variant="body2" color="text.secondary">
