@@ -9,6 +9,34 @@ import api from '../api/Axios'
 import Notification from './Alert';
 
 const EditModal = (props) => {
+
+    const [priceP, setPriceP] = React.useState("")
+
+    const expressions  = {
+        price: /^[0-9. ,]{1,5}$/, // numeros
+        
+      }
+
+    const [validationPrice, setValidationPrice] = useState("")
+    const [errorPrice, setErrorPrice] = useState(false)
+
+
+    const onChangePrice = (e) =>{
+        setPriceP(e.target.value)
+        console.log(priceP)
+    
+        if(expressions .price.test(priceP)){
+    
+          setValidationPrice("Correct Price")
+          setErrorPrice(false) 
+        }else{
+          setValidationPrice("Wrong Price...maximum 5 characters and only numbers")
+          setErrorPrice(true) 
+        }
+    
+      }
+
+
     const { product, user, open, name, price, handleClose } = props
     const [ pPrice, setpPrice] = useState('')
     const [ message, setMessage ] = useState('')
@@ -31,6 +59,9 @@ const EditModal = (props) => {
     }
 
     const handleSaveButton = (e) => {
+        if(errorPrice === true ){
+            alert("Wrong fields")
+          }else{
         e.preventDefault()
         const prod = {
             name: name,
@@ -53,6 +84,8 @@ const EditModal = (props) => {
             setType('error')
         })
     }
+        
+}
 
     return(
         <Modal
@@ -67,7 +100,21 @@ const EditModal = (props) => {
                         {name}
                     </Typography>
                     <br/><br/>
-                    <TextField onChange={(event) => setpPrice(event.target.value)} required placeholder={price} id="outlined-number" label="New Price" type="number" InputLabelProps={{shrink: true,}} variant="outlined" defaultValue={price}/>
+                    <TextField 
+                    
+                    required 
+                    placeholder={price}
+                    id="outlined-number" 
+                    label="New Price" 
+                    type="number" 
+                    InputLabelProps={{shrink: true,}} 
+                    variant="outlined" 
+                    defaultValue={price}
+                    error = {errorPrice}
+                    helperText = {validationPrice}
+                    onBlur={(onChangePrice)}
+                    onChange={(event) => setpPrice(event.target.value)} 
+                    />
                     <br/><br/>
                     <Stack spacing={2}> 
                         <Button variant="contained" color="success" onClick={handleSaveButton}>Save</Button>

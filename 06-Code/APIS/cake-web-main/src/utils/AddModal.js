@@ -13,6 +13,77 @@ import Select from '@mui/material/Select';
 import Notification from './Alert';
 
 const AddModal = (props) => {
+
+    const reload = () => {
+        window.location.reload(true);
+    }
+
+    const [name, setName] = React.useState("")
+    const [quantityP, setQuantity] = React.useState("")
+    const [priceP, setPrice] = React.useState("")
+    
+
+    const expressions  = {
+        price: /^[0-9. ,]{1,5}$/, // numeros
+        name: /^[a-zA-ZÀ-ÿ\s]{1,20}$/, // Letras y espacios, pueden llevar acentos.
+          quantity: /^[0-9]{1,5}$/, // numeros
+      }
+
+
+      const [validationName, setValidationName] = useState("")
+      const [errorName, setErrorName] = useState(false)
+    
+      const [validationPrice, setValidationPrice] = useState("")
+      const [errorPrice, setErrorPrice] = useState(false)
+    
+      const [validationQuantity, setValidationQuantity] = useState("")
+      const [errorQuantity, setErrorQuantity] = useState(false)
+      
+      const onChangeName = (e) =>{
+        setName(e.target.value)
+        console.log(name)
+    
+        if(expressions .name.test(name)){
+    
+          setValidationName("Correct Name of Product")
+          setErrorName(false) 
+        }else{
+          setValidationName("Wrong Name...maximum 20 characters and only letters")
+          setErrorName(true) 
+        }
+    
+      }
+
+      const onChangePrice = (e) =>{
+        setPrice(e.target.value)
+        console.log(priceP)
+    
+        if(expressions .price.test(priceP)){
+    
+          setValidationPrice("Correct Price")
+          setErrorPrice(false) 
+        }else{
+          setValidationPrice("Wrong Price...maximum 5 characters and only numbers")
+          setErrorPrice(true) 
+        }
+    
+      }
+
+      const onChangeQuantity = (e) =>{
+        setQuantity(e.target.value)
+        console.log(quantityP)
+    
+        if(expressions .quantity.test(quantityP)){
+    
+          setValidationQuantity("Correct Price")
+          setErrorQuantity(false) 
+        }else{
+          setValidationQuantity("Wrong Quantity...maximum 5 characters and only numbers")
+          setErrorQuantity(true) 
+        }
+    
+      }
+
     const { user, open, handleClose } = props
     const [ prod, setProd ] = useState({name: ``, type: "", description: '', price: ``, quantity: ''})
     const [ message, setMessage ] = useState('')
@@ -32,6 +103,9 @@ const AddModal = (props) => {
     }
 
     const handleSaveButton = (e) => {
+      if(errorQuantity === true || errorName === true || errorQuantity === true ){
+        alert("Wrong fields")
+      }else{
         e.preventDefault()
         const config = {
             headers: {
@@ -43,11 +117,13 @@ const AddModal = (props) => {
             setMessage('Successful change!')
             setType('success')
             alert("Add Success")
+            reload()
         })
         .catch(error => {
             setMessage('There were problems when making the changes')
             setType('error')
         })
+      }
     }
 
 
@@ -63,7 +139,19 @@ const AddModal = (props) => {
                         Create a new product
                     </Typography>
                     <br/><br/>
-                    <TextField onChange={(event) => setProd({...prod,name:event.target.value})}id="outlined-basic" label="Name" variant="outlined" fullWidth="true" required/>
+                    <TextField 
+                    onChange={(event) => setProd({...prod,name:event.target.value})}
+                    id="outlined-basic" 
+                    label="Name"
+                    
+                     variant="outlined" 
+                     fullWidth="true" 
+                     required
+                     error = {errorName}
+                     helperText = {validationName}
+                     onBlur={(onChangeName)} 
+                     autoFocus
+                     />
                     <br/><br/>
                     <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">Type</InputLabel>
@@ -76,9 +164,30 @@ const AddModal = (props) => {
                     <br/><br/>
                     <TextField onChange={(event) => setProd({...prod,description:event.target.value})}id="outlined-basic" label="Description" variant="outlined" fullWidth="true" required/>
                     <br/><br/>
-                    <TextField onChange={(event) => setProd({...prod,price:event.target.value})}id="outlined-basic" label="Price" variant="outlined" type="number" fullWidth="true" required/>
+                    <TextField 
+                    onChange={(event) => setProd({...prod,price:event.target.value})}
+                    id="outlined-basic" 
+                    label="Price" 
+                    variant="outlined" 
+                    type="number" 
+                    fullWidth="true" 
+                    required
+                    error = {errorPrice}
+                    helperText = {validationPrice}
+                    onBlur={(onChangePrice)}
+                    />
                     <br/><br/>
-                    <TextField onChange={(event) => setProd({...prod,quantity:event.target.value})}id="outlined-basic" label="Quantity" variant="outlined" type="number" fullWidth="true" required/>
+                    <TextField onChange={(event) => setProd({...prod,quantity:event.target.value})}
+                    id="outlined-basic" 
+                    label="Quantity" 
+                    variant="outlined" 
+                    type="number" 
+                    fullWidth="true" 
+                    required
+                    error = {errorQuantity}
+                    helperText = {validationQuantity}
+                    onBlur={(onChangeQuantity)}
+                    />
                     <br/><br/>
                     <Stack spacing={2}>
                         <Button variant="contained" color="success" onClick={handleSaveButton}>Save</Button>

@@ -38,6 +38,9 @@ const ShopModal = (props) => {
         p: 4,
     };
 
+    const reload = () => {
+        window.location.reload(true);
+    }
     
     const onAddToShopClick = (e) => {
         e.preventDefault()
@@ -51,32 +54,8 @@ const ShopModal = (props) => {
         productsToShop.push(productToInvoice)
         setMessage('Added to cart!')
         setType('success')
-        /*const config = {
-            headers: {
-                Authorization: `Bearer ${user.token}`
-            }
-        }
-        api.post('/invoice/add',productToInvoice,config)
-        .then(res => {
-            setMessage('Successful purchase!')
-            setType('success')
-            api.put('/products/updateShop',{name: productToInvoice.name, newQuantity: productToInvoice.newQuantity, quantity: quantityParam},config)
-            .then(response => {
-                setMessage('Successful purchase!')
-                setType('success')
-                alert("Shop Success")
-            })
-            .catch(error => {
-                setMessage('There were problems when making the purchase')
-                setType('error')
-            })
-        })
-        .catch(err => {
-            setMessage('There were problems when making the purchase')
-            setType('error')
-        })*/
     }
-
+    
     return(
         <Modal
             open={open}
@@ -94,7 +73,12 @@ const ShopModal = (props) => {
                     <Typography variant="body2">
                         {product.description}
                     </Typography>
-                    <Input onChange={(event) => setQ(event.target.value)} inputProps={{ inputMode: 'numeric', pattern: '[0-9]*', min: 1, max: product.quantity}}  type='number' defaultValue='0'/>
+                    <Input 
+                    size='25'
+                    onChange={(event) => setQ(event.target.value)} 
+                    inputProps={{ inputMode: 'numeric', pattern: '[0-9]*', min: 1, max: product.quantity}}  
+                    type='number' 
+                    />
                     <br/><br/>
                     <Typography variant="body2" color="text.secondary">
                         {product.quantity} units in stock
