@@ -114,7 +114,7 @@ const ProductsPage = () => {
                 <Box sx={{flexGrow: 1 }}>
                 <SpeedDial
                     ariaLabel="SpeedDial basic example"
-                    sx={{ position: 'absolute', bottom: 16, right: 16 }}
+                    sx={{ position: 'fixed', bottom: 16, right: 16 }}
                     icon={<ShoppingCartIcon/>}
                     onClick={() => setCartOpen(true)}
                 />

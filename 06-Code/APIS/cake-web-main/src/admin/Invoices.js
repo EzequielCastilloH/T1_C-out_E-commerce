@@ -8,6 +8,7 @@ import List from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
 import Container from '@mui/material/Container';
 import Chip from '@mui/material/Chip';
+import { orange } from '@mui/material/colors';
 
 const InvoicePage = () => {
     const [products, setProducts] = useState([])
@@ -66,7 +67,9 @@ const InvoicePage = () => {
                                 </List>
                                 )
                             }
-                        <Chip label={`Subtotal: ${p.subTotal}`} color="success" variant="contained" /><br/><br/>
+                        <Chip label={`Subtotal: ${p.subTotal} $`} color="success" variant="contained" /><br/><br/>
+                        <Chip label={`Iva(12%): ${p.iva} $`} color="warning" variant="contained" /><br/><br/>
+                        <Chip label={`Total: ${p.total} $`} color="error" variant="contained" /><br/><br/>
                        </Card>
                     )
                 }

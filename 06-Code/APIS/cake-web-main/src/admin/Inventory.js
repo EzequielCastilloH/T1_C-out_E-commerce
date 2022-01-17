@@ -79,13 +79,6 @@ const InventoryPage = () => {
     const renderProductsComponent = () => {
         return(
             <MainAdminPage>
-
-                <Fab color="primary" aria-label="add" sx={{position: 'absolute', bottom: 30, right: 90}}>
-                    <AddIcon onClick={() => {
-                        setOpenAdd(true)
-                    }} />
-                </Fab>
-
                 <Grid container spacing={3} sx={{m:'5px'}}>
                     {
                         products.map(p => 
@@ -133,6 +126,11 @@ const InventoryPage = () => {
                         )
                     }
                 </Grid>
+                <Fab color="primary" aria-label="add" sx={{position: 'fixed', bottom: 30, right: 90, flexGrow: 1}}>
+                    <AddIcon onClick={() => {
+                        setOpenAdd(true)
+                    }} />
+                </Fab>
                 <Modal product={selected} name={name} price={price} user={user} handleClose={() => setOpen(false)} open={isOpen}/>
                 <QuantityModal product={selected} name={name} quantity={quantity} user={user} handleClose={() => setIsOpenQuantity(false)} open={isOpenQuantity}/>
                 <DeleteModal product={selected} name={name} user={user} handleClose={() => setIsOpenDelete(false)} open={isOpenDelete}/>
