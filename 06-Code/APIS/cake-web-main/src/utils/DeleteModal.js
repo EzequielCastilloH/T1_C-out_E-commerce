@@ -1,9 +1,8 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import api from '../api/Axios'
 import Notification from './Alert';
@@ -13,6 +12,7 @@ const DeleteModal = (props) => {
     const [ message, setMessage ] = useState('')
     const [ type, setType ] = useState('')
     const [ isOpen, setIsOpen ] = useState(true)
+    const [ prodName, setName] = useState('')
 
     const style = {
         position: 'absolute',
@@ -25,30 +25,30 @@ const DeleteModal = (props) => {
         p: 4,
     }
 
+    useEffect(() => {
+        setName(name)
+    })
+
     const reload = () => {
         window.location.reload(true);
     }
 
-    const handleSaveButton = (e) => {
+    const handleSaveButton = async (e) => {
         e.preventDefault()
-        const prod = {
-            name: name
+        let productToDelete = {
+            name: prodName
         }
         const config = {
             headers: {
                 Authorization: `Bearer ${user.token}`
             }
         }
-        api.delete("/products/deleteProduct",prod, config)
+        api.delete('/products/deleteProduct',productToDelete,config)
         .then(response => {
-            setMessage('Deleted successfully!')
-            setType('success')
-            //alert("Prices changed succesfully")
-            reload()
+            alert('OK')
         })
         .catch(error => {
-            setMessage('There were problems when making the changes')
-            setType('error')
+            alert('ERROR')
         })
     }
 

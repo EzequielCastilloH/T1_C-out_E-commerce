@@ -18,7 +18,6 @@ import QuantityModal from '../utils/QuantityModal';
 import DeleteModal from '../utils/DeleteModal';
 
 const InventoryPage = () => {
-
     const [products, setProducts] = useState([])
     const [ rol, setRol ] = useState('')
     const [selected, setSelected] = useState({})
@@ -111,13 +110,6 @@ const InventoryPage = () => {
                                             setQuantity(p.quantity)                                      
                                             setIsOpenQuantity(true)
                                         }}>Quantity</ColorButtonEdit>
-                                        <Fab color="blue" aria-label="delete" size="small" sx={{bottom: 5, right: -50}}>
-                                            <DeleteIcon onClick={() => {
-                                                setSelected(p)
-                                                setName(p.name)
-                                                setIsOpenDelete(true)
-                                            }} />
-                                        </Fab>
                                         <br/>
                                     </center>
                                     <br/>
@@ -133,7 +125,7 @@ const InventoryPage = () => {
                 </Fab>
                 <Modal product={selected} name={name} price={price} user={user} handleClose={() => setOpen(false)} open={isOpen}/>
                 <QuantityModal product={selected} name={name} quantity={quantity} user={user} handleClose={() => setIsOpenQuantity(false)} open={isOpenQuantity}/>
-                <DeleteModal product={selected} name={name} user={user} handleClose={() => setIsOpenDelete(false)} open={isOpenDelete}/>
+                <DeleteModal name={name} user={user} handleClose={() => setIsOpenDelete(false)} open={isOpenDelete}/>
                 <AddModal product={selected} user={user} handleClose={() => setOpenAdd(false)} open={isOpenAdd}/>
             </MainAdminPage>
         )

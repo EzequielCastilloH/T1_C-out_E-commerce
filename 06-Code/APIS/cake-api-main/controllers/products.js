@@ -158,7 +158,7 @@ const updateQuantityProductShop = (req, res) => {
 //Delete Product
 const deleteProduct = (req,res) => {
     const authorization = req.get('authorization')
-    let token = ''
+    let token = ' '
     if(authorization && authorization.toLowerCase().startsWith('bearer')){
         token = authorization.substring(7)
     }
@@ -171,9 +171,8 @@ const deleteProduct = (req,res) => {
     if(!token || !decodedToken.id){
         return res.status(401).json({error: 'token missing or invalid'})
     }
-
     try{
-        Product.findOneAndRemove({name: req.body.name}, (err, prod) => {
+        Product.findOneAndDelete({name: req.body.name}, (err, prod) => {
             err && res.status(501).send(err.message)
             res.status(200).send(prod)
         })
@@ -181,6 +180,5 @@ const deleteProduct = (req,res) => {
         res.status(404).send({error: "Product is not found"})
     }
 }
-
 
 module.exports = {addProduct, getProducts, getProductsByType, updatePriceProduct, deleteProduct, updateQuantityProduct, updateQuantityProductShop}
