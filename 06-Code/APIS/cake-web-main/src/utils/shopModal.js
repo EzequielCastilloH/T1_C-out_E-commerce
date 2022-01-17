@@ -9,6 +9,9 @@ import api from '../api/Axios'
 import Notification from './Alert';
 
 const ShopModal = (props) => {
+
+   
+
     const { user, product, open, handleClose, setDay, name, price, quantityParam } = props
     const [ total, setTotal ] = useState(0)
     const [ prodName, setName] = useState('')
@@ -39,8 +42,12 @@ const ShopModal = (props) => {
         p: 4,
     };
 
+    const reload = () => {
+        window.location.reload(true);
+    }
     
     const onShopClick = (e) => {
+        
         e.preventDefault()
         const productToInvoice = {
             name: prodName,
@@ -63,6 +70,7 @@ const ShopModal = (props) => {
                 setMessage('Successful purchase!')
                 setType('success')
                 alert("Shop Success")
+                reload()
             })
             .catch(error => {
                 setMessage('There were problems when making the purchase')
@@ -74,6 +82,7 @@ const ShopModal = (props) => {
             setType('error')
         })
     }
+    
 
     return(
         <Modal
@@ -92,7 +101,14 @@ const ShopModal = (props) => {
                     <Typography variant="body2">
                         {product.description}
                     </Typography>
-                    <Input onChange={(event) => setQ(event.target.value)} inputProps={{ inputMode: 'numeric', pattern: '[0-9]*', min: 1, max: product.quantity}}  type='number' defaultValue='0'/>
+                    <Input 
+                    size='25'
+                    onChange={(event) => setQ(event.target.value)} 
+                    inputProps={{ inputMode: 'numeric', pattern: '[0-9]*', min: 1, max: product.quantity}}  
+                    type='number' 
+                    
+                    
+                    />
                     <br/><br/>
                     <Typography variant="body2" color="text.secondary">
                         {product.quantity} units in stock

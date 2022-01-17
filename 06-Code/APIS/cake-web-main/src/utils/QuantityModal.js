@@ -9,6 +9,35 @@ import api from '../api/Axios'
 import Notification from './Alert';
 
 const QuantityModal = (props) => {
+
+   
+
+    const [quantityP, setQuantity] = React.useState("")
+
+    const expressions  = {
+        
+        quantity: /^[0-9]{1,5}$/, // numeros
+      }
+
+      const [validationQuantity, setValidationQuantity] = useState("")
+      const [errorQuantity, setErrorQuantity] = useState(false)
+      
+      const onChangeQuantity = (e) =>{
+        setQuantity(e.target.value)
+        console.log(quantityP)
+    
+        if(expressions .quantity.test(quantityP)){
+    
+          setValidationQuantity("Correct Quantity")
+          setErrorQuantity(false) 
+        }else{
+          setValidationQuantity("Wrong Quantity...maximum 5 characters and only numbers")
+          setErrorQuantity(true) 
+        }
+    
+      }
+
+
     const { product, user, open, name, quantity, handleClose } = props
     const [ pQuantity, setPQuantity ] = useState('')
     const [ message, setMessage ] = useState('')
@@ -31,6 +60,9 @@ const QuantityModal = (props) => {
     }
 
     const handleSaveButton = (e) => {
+        if(errorQuantity === true ){
+            alert("Wrong fields")
+          }else{
         e.preventDefault()
         const prod = {
             name: name,
@@ -53,6 +85,7 @@ const QuantityModal = (props) => {
             setType('error')
         })
     }
+    }
 
     return(
         <Modal
@@ -67,7 +100,20 @@ const QuantityModal = (props) => {
                         {name}
                     </Typography>
                     <br/><br/>
-                    <TextField onChange={(event) => setPQuantity(event.target.value)} required placeholder={quantity} id="outlined-number" label="New Quantity" type="number" InputLabelProps={{shrink: true,}} variant="outlined" defaultValue={quantity}/>
+                    <TextField 
+                    onChange={(event) => setPQuantity(event.target.value)} 
+                    required 
+                    placeholder={quantity} 
+                    id="outlined-number" 
+                    label="New Quantity" 
+                    type="number" 
+                    InputLabelProps={{shrink: true,}} 
+                    variant="outlined" 
+                    defaultValue={quantity}
+                    error = {errorQuantity}
+                    helperText = {validationQuantity}
+                    onBlur={(onChangeQuantity)}
+                    />
                     <br/><br/>
                     <Stack spacing={2}> 
                         <Button variant="contained" color="success" onClick={handleSaveButton}>Save</Button>
