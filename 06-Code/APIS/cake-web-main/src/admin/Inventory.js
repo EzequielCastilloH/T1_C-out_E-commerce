@@ -86,7 +86,7 @@ const InventoryPage = () => {
                             <Grid item xs={4}>
                                 <Card sx={{ maxWidth: 550 }}>
                                     <center>
-                                        <CardContent>
+                                        <CardContent sx={{ bgcolor:'#E7E5DF'}}>
                                             <Typography variant="h5" component="div">
                                                 {p.name}
                                             </Typography>
