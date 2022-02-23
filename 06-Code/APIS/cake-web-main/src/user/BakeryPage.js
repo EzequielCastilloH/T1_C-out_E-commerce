@@ -8,7 +8,6 @@ import Grid from '@mui/material/Grid';
 import api from '../api/Axios'
 import ErrorPage from '../public/ErrorPage'
 import Modal from '../utils/shopModal'
-import { brown } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
 import Banner from '../utils/Banner';
 
@@ -60,10 +59,10 @@ const DessertsPage = () => {
     products.forEach(p => delete p._id)
 
     const ColorButton = styled(Button)(({ theme }) => ({
-        color: theme.palette.getContrastText(brown[400]),
-        backgroundColor: brown[400],
+        color: theme.palette.getContrastText('#EF5350'),
+        backgroundColor: '#EF5350',
         '&:hover': {
-          backgroundColor: brown[700],
+          backgroundColor: '#EF5350',
         },
     }))
 
@@ -83,7 +82,7 @@ const DessertsPage = () => {
                             <Grid item xs={4}>
                                 <Card sx={{ maxWidth: 550 }}>
                                     <center>
-                                        <CardContent>
+                                        <CardContent sx={{ bgcolor:'#E7E5DF'}}>
                                             <Typography variant="h5" component="div">
                                                 {p.name}
                                             </Typography>
@@ -93,7 +92,7 @@ const DessertsPage = () => {
                                             <Typography variant="body2">
                                                 {p.price} $
                                             </Typography>
-                                        </CardContent>
+                                        </CardContent><br/>
                                         <ColorButton variant="contained" onClick={() => {setSelected(p) 
                                             setOpen(true)
                                             setName(p.name)

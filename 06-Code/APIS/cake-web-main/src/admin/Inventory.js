@@ -107,7 +107,7 @@ const InventoryPage = () => {
                                             setPrice(p.price)                                       
                                             setOpen(true)
                                         }}>Price</ColorButtonEdit>
-                                        <ColorButtonEdit sx={{bottom: 5, right: -10, bgcolor:'#EF5350', color: 'WHITE',SIZE:25}} variant="contained" onClick={() => {
+                                        <ColorButtonEdit sx={{bottom: 5, right: -10, bgcolor:'#', color: 'WHITE',SIZE:25}} variant="contained" onClick={() => {
                                             setSelected(p)
                                             setName(p.name)
                                             setQuantity(p.quantity)                                      
