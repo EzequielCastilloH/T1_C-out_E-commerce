@@ -18,10 +18,11 @@ const Register = () => {
   const [email, setEmail] = React.useState("")
   const [userName, setUserName] = React.useState("")
   const [password, setPassword] = React.useState("")
-  //VALIDATION FIELDS
+
+  //Validation pattern
   const expressions  = {
-    username: /^[a-zA-Z0-9_-]{4,16}$/, // Letras, numeros, guion y guion_bajo
-    name: /^[a-zA-ZÀ-ÿ\s]{1,30}$/, // Letras y espacios, pueden llevar acentos.
+    username: /^[a-zA-Z0-9_-]{4,12}$/, // Letras, numeros, guion y guion_bajo
+    name: /^[a-zA-Z\s]{1,30}$/, // Letras y espacios, pueden llevar acentos.
     password: /^.{4,17}$/, // 4 a 17 digitos.
       email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
   }
@@ -38,7 +39,7 @@ const Register = () => {
   const [validationPassword, setValidationPassword] = useState("")
   const [errorPassword, setErrorPassword] = useState(false)
 
-
+//Validation functions
   const onChangeName = (e) =>{
     setName(e.target.value)
     console.log(name)
@@ -78,7 +79,7 @@ const Register = () => {
       setValidationUserName("Correct User")
       setErrorUserName(false) 
     }else{
-      setValidationUserName("Please Enter a valid user Max 16 characters")
+      setValidationUserName("Please Enter a valid user Max 12 characters")
       setErrorUserName(true) 
     }
 
