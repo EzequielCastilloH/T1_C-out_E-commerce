@@ -95,7 +95,7 @@ const MainAdminPage = (props) => {
               component="div"
               sx={{ mb: 1, display: { xs: 'none', md: 'flex' } }}
             >
-              <img class="logo" src="https://github.com/EzequielCastilloH/T1_C-out_E-commerce/blob/main/06-Code/E-commerce%20Code/JAVA/web/img/logo.png?raw=true" width="90" height="90"/>
+              <img class="logo" src="https://github.com/EzequielCastilloH/T1_C-out_E-commerce/blob/main/06-Code/APIS/cake-web-main/src/img/a784f96a-e176-4e03-a812-c2b71afcb3ef.jpg" width="90" height="90"/>
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
               <IconButton

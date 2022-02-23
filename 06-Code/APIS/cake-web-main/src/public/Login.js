@@ -66,7 +66,7 @@ const Login = () => {
               alignItems: 'center',
             }}
           >
-            <img src="https://github.com/EzequielCastilloH/T1_C-out_E-commerce/blob/main/06-Code/E-commerce%20Code/JAVA/web/img/logo.png?raw=true" width="200" height="200"/>
+            <img src="https://github.com/EzequielCastilloH/T1_C-out_E-commerce/blob/main/06-Code/APIS/cake-web-main/src/img/a784f96a-e176-4e03-a812-c2b71afcb3ef.jpg?raw=true" width="200" height="200"/>
             <Typography component="h3" variant="h3">
               Login
             </Typography>
