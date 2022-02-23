@@ -45,7 +45,7 @@ const ProductsPage = () => {
         return(
             <MainUserPage>
                 <center>
-                <img class="logo" src="../img/home.jpg" width="300" height="300"/>
+                <img class="logo" src="https://github.com/EzequielCastilloH/T1_C-out_E-commerce/blob/main/06-Code/APIS/cake-web-main/src/img/home.jpg" width="300" height="300"/>
                 </center>
             </MainUserPage>
         )
