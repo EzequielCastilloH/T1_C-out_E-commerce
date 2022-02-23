@@ -18,7 +18,7 @@ const Register = () => {
   const [email, setEmail] = React.useState("")
   const [userName, setUserName] = React.useState("")
   const [password, setPassword] = React.useState("")
-  
+  //VALIDATION FIELDS
   const expressions  = {
     username: /^[a-zA-Z0-9_-]{4,16}$/, // Letras, numeros, guion y guion_bajo
     name: /^[a-zA-ZÀ-ÿ\s]{1,30}$/, // Letras y espacios, pueden llevar acentos.
@@ -48,7 +48,7 @@ const Register = () => {
       setValidationName("Correct User")
       setErrorName(false) 
     }else{
-      setValidationName("Wrong Name...maximum 30 characters and only letters")
+      setValidationName("Wrong Name.!maximum 30 characters and only letters")
       setErrorName(true) 
     }
 
@@ -93,7 +93,7 @@ const Register = () => {
       setValidationPassword("Correct Password")
       setErrorPassword(false) 
     }else{
-      setValidationPassword("Please Enter a valid password, Max 17 digits")
+      setValidationPassword("Please Enter a valid password...Max 17 digits")
       setErrorPassword(true) 
     }
 
@@ -169,20 +169,16 @@ const Register = () => {
               <TextField
                 
                 variant="outlined"
-                
                 margin="normal"
                 required
                 fullWidth
                 error = {errorName}
-                  helperText = {validationName}
-                  onBlur={(onChangeName)}
+                helperText = {validationName}
+                onBlur={(onChangeName)}
                 label="Complete Name"
-                
                 name="name"
-                
                 value ={user.name}
                 onChange={(event) => setUser({...user,name: event.target.value})}
-                
                 autoFocus
               />
               
@@ -213,6 +209,7 @@ const Register = () => {
                 value={user.username}
                 onChange = {(event) => setUser({...user,username: event.target.value})}
               />
+              
               <TextField
                 variant="outlined"
                 error = {errorPassword}
