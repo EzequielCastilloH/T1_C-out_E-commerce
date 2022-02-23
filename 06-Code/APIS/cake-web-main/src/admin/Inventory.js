@@ -14,6 +14,7 @@ import { styled } from '@mui/material/styles';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Banner from '../utils/Banner';
 import QuantityModal from '../utils/QuantityModal';
 import DeleteModal from '../utils/DeleteModal';
 
@@ -78,6 +79,7 @@ const InventoryPage = () => {
     const renderProductsComponent = () => {
         return(
             <MainAdminPage>
+                <Banner linkImage="https://t3.ftcdn.net/jpg/04/85/52/28/240_F_485522816_zydL5SPa54Fu9e4KRuzNdIsITNivH7rt.jpg" description="Inventory"/>
                 <Grid container spacing={3} sx={{m:'5px'}}>
                     {
                         products.map(p => 
