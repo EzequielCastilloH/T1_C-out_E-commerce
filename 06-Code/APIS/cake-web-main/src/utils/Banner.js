@@ -16,7 +16,7 @@ const Banner = (props) => {
                     alt="image description"
                 />
                 <CardContent>
-                    <Typography variant="h4" color="text.primary" sx={{textAlign: 'center'}}>
+                    <Typography variant="h4" color="text.secondary" sx={{textAlign: 'center', color: '#c8972b', fontWeight: 'bold'}}>
                         {description}
                     </Typography>
                 </CardContent>
