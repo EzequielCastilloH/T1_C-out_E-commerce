@@ -23,7 +23,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.post('http://localhost:8081/api/endpoints/login',user)
+    axios.post('http://ec2-44-202-17-163.compute-1.amazonaws.com:3001/api/endpoints/login',user)
       .then(res => {
         window.localStorage.setItem('authUser', JSON.stringify(res.data))
         if(res.data.rol === 'user'){

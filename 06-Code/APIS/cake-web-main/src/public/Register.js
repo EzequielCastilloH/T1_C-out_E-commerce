@@ -117,7 +117,7 @@ const Register = () => {
       alert("Wrong fields")
     }else{
     e.preventDefault()
-    axios.post('http://localhost:8081/api/endpoints/add',user)
+    axios.post('http://ec2-44-202-17-163.compute-1.amazonaws.com:3001/api/endpoints/add',user)
       .then(res => {
         
         setMessage({msg: 'Done!', type:'success'})
