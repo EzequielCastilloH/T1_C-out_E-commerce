@@ -149,7 +149,7 @@ const MainAdminPage = (props) => {
                   <Button
                     key={page}
                     onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: 'white', display: 'block' }}
+                    sx={{ my: 2, color: 'white', display: 'block', fontSize:20 }}
                   >
                     {page}
                   </Button>
