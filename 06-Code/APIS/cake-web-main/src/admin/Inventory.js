@@ -85,9 +85,9 @@ const InventoryPage = () => {
                         products.map(p => 
                             <Grid item xs={4}>
                                 <Card sx={{ maxWidth: 550 }}>
-                                    <center>
+                                    <center >
                                         <CardContent sx={{ bgcolor:'#E7E5DF'}}>
-                                            <Typography variant="h5" component="div">
+                                            <Typography variant="h5" component="div" > 
                                                 {p.name}
                                             </Typography>
                                             <Typography sx={{ mb: 1.5 }} color="text.secondary">
@@ -100,13 +100,14 @@ const InventoryPage = () => {
                                                 Quantity: {p.quantity}
                                             </Typography>
                                         </CardContent>
-                                        <ColorButtonEdit sx={{bottom: 5, right: 5, bgcolor:'#fffa85', color: 'black'}} size="small" variant="contained" onClick={() => {
+                                        
+                                        <ColorButtonEdit sx={{bottom: 5, right: 5, bgcolor:'#95B634', color: 'WHITE', size:25}}  variant="contained" onClick={() => {
                                             setSelected(p)
                                             setName(p.name)
                                             setPrice(p.price)                                       
                                             setOpen(true)
                                         }}>Price</ColorButtonEdit>
-                                        <ColorButtonEdit sx={{bottom: 5, right: -10, bgcolor:'#bea58f', color: 'black'}} size="small" variant="contained" onClick={() => {
+                                        <ColorButtonEdit sx={{bottom: 5, right: -10, bgcolor:'#EF5350', color: 'WHITE',SIZE:25}} variant="contained" onClick={() => {
                                             setSelected(p)
                                             setName(p.name)
                                             setQuantity(p.quantity)                                      
