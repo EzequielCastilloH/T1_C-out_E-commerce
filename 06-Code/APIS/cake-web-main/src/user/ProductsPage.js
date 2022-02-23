@@ -2,6 +2,9 @@ import React, {useState, useEffect} from 'react'
 import MainUserPage from '../templates/MainUserPage'
 import api from '../api/Axios'
 import ErrorPage from '../public/ErrorPage'
+import Card from '@mui/material/Card';
+import Button from '@mui/material/Button';
+import {Link, useNavigate} from 'react-router-dom'
 
 const ProductsPage = () => {
     const [ rol, setRol ] = useState('')
@@ -45,7 +48,18 @@ const ProductsPage = () => {
         return(
             <MainUserPage>
                 <center>
-                <img class="logo" src="https://github.com/EzequielCastilloH/T1_C-out_E-commerce/blob/main/06-Code/APIS/cake-web-main/src/img/home.jpg" width="300" height="300"/>
+                    <Card sx={{width: '1200px', marginTop: '20px', boxShadow: 3}}>
+                        <img class="logo" src="https://github.com/EzequielCastilloH/T1_C-out_E-commerce/blob/main/06-Code/APIS/cake-web-main/src/img/home.jpg?raw=true" width="1200" height="600"/>
+                        <Link to="/products/bakery">
+                            <Button variant="contained" color="error" sx={{marginLeft: '10px'}} >Bakery</Button>
+                        </Link>
+                        <Link to="/products/dessert">
+                            <Button variant="contained" color="error" sx={{marginLeft: '10px'}} >Desserts</Button>
+                        </Link>
+                        <Link to="/products/cakes">
+                            <Button variant="contained" color="error" sx={{marginLeft: '10px'}} >Cakes</Button><br/><br/>
+                        </Link>
+                    </Card>
                 </center>
             </MainUserPage>
         )
