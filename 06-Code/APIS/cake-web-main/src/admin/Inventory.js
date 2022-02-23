@@ -98,18 +98,19 @@ const InventoryPage = () => {
                                                 Quantity: {p.quantity}
                                             </Typography>
                                         </CardContent>
-                                        <ColorButtonEdit sx={{bottom: 5, right: 5}} size="small" variant="contained" onClick={() => {
+                                        <ColorButtonEdit sx={{bottom: 5, right: 5, bgcolor:'#fffa85', color: 'black'}} size="small" variant="contained" onClick={() => {
                                             setSelected(p)
                                             setName(p.name)
                                             setPrice(p.price)                                       
                                             setOpen(true)
                                         }}>Price</ColorButtonEdit>
-                                        <ColorButtonEdit sx={{bottom: 5, right: -20}} size="small" variant="contained" onClick={() => {
+                                        <ColorButtonEdit sx={{bottom: 5, right: -10, bgcolor:'#bea58f', color: 'black'}} size="small" variant="contained" onClick={() => {
                                             setSelected(p)
                                             setName(p.name)
                                             setQuantity(p.quantity)                                      
                                             setIsOpenQuantity(true)
                                         }}>Quantity</ColorButtonEdit>
+                                        
                                         <br/>
                                     </center>
                                     <br/>
@@ -118,7 +119,7 @@ const InventoryPage = () => {
                         )
                     }
                 </Grid>
-                <Fab color="primary" aria-label="add" sx={{position: 'fixed', bottom: 30, right: 90, flexGrow: 1}}>
+                <Fab color="primary" aria-label="add" sx={{position: 'fixed', bottom: 30, right: 90, flexGrow: 1 ,bgcolor:'#67af78', color: 'white'}}>
                     <AddIcon onClick={() => {
                         setOpenAdd(true)
                     }} />
