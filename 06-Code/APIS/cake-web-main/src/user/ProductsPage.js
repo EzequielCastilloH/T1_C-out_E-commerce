@@ -14,6 +14,7 @@ import { styled } from '@mui/material/styles';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SpeedDial from '@mui/material/SpeedDial';
 import ListProducts from '../utils/ListProducts';
+import Banner from '../utils/Banner';
 
 const ProductsPage = () => {
     const [ rol, setRol ] = useState('')
@@ -57,69 +58,13 @@ const ProductsPage = () => {
         fetchData()
     }, [user])
 
-    const [ name, setName ] = useState('')
-    const [ price, setPrice ] = useState('')
-    const [ quantity, setQuantity ] = useState('')
-
-    products.forEach(p => delete p._id)
-
-    const ColorButton = styled(Button)(({ theme }) => ({
-        color: theme.palette.getContrastText(brown[400]),
-        backgroundColor: brown[400],
-        '&:hover': {
-          backgroundColor: brown[700],
-        },
-    }))
-
-    const setDay = (e) => {
-        const today = new Date()
-        const dateShop = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`
-        return dateShop
-    }
     
     const renderProductsComponent = () => {
         return(
             <MainUserPage>
-                <Grid container spacing={3} sx={{m:'5px'}}>
-                    {
-                        products.map(p => 
-                            <Grid item xs={4}>
-                                <Card sx={{ maxWidth: 550 }}>
-                                    <center>
-                                        <CardContent>
-                                            <Typography variant="h5" component="div">
-                                                {p.name}
-                                            </Typography>
-                                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                                {p.description}
-                                            </Typography>
-                                            <Typography variant="body2">
-                                                {p.price} $
-                                            </Typography>
-                                        </CardContent>
-                                        <ColorButton variant="contained" onClick={() => {setSelected(p) 
-                                            setOpen(true)
-                                            setName(p.name)
-                                            setPrice(p.price)
-                                            setQuantity(p.quantity)}}>Add to cart</ColorButton>
-                                        <br/>
-                                    </center>
-                                    <br/>
-                                </Card>
-                            </Grid>
-                        )
-                    }
-                </Grid>
-                <Modal user={user} name={name} price={price} quantityParam={quantity} setDay={setDay} product = {selected} handleClose={() => setOpen(false)} open={isOpen}/>
-                <Box sx={{flexGrow: 1 }}>
-                <SpeedDial
-                    ariaLabel="SpeedDial basic example"
-                    sx={{ position: 'fixed', bottom: 16, right: 16 }}
-                    icon={<ShoppingCartIcon/>}
-                    onClick={() => setCartOpen(true)}
-                />
-                </Box>
-                <ListProducts user={user} open={isCartOpen} handleClose={() => setCartOpen(false)} setDay={setDay}/>
+                <center>
+                <img class="logo" src="https://github.com/EzequielCastilloH/T1_C-out_E-commerce/blob/main/06-Code/E-commerce%20Code/JAVA/web/img/logo.png?raw=true" width="300" height="300"/>
+                </center>
             </MainUserPage>
         )
     }

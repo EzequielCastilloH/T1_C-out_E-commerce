@@ -117,7 +117,7 @@ const Register = () => {
       alert("Wrong fields")
     }else{
     e.preventDefault()
-    axios.post('http://ec2-44-202-17-163.compute-1.amazonaws.com:3001/api/endpoints/add',user)
+    axios.post('http://localhost:3001/api/endpoints/add',user)
       .then(res => {
         
         setMessage({msg: 'Done!', type:'success'})
@@ -161,6 +161,7 @@ const Register = () => {
               alignItems: 'center',
             }}
           >
+                        <img src="https://github.com/EzequielCastilloH/T1_C-out_E-commerce/blob/main/06-Code/E-commerce%20Code/JAVA/web/img/logo.png?raw=true" width="200" height="200"/>
             <Typography component="h1" variant="h5">
               Register
             </Typography>
@@ -193,14 +194,9 @@ const Register = () => {
                 margin="normal"
                 required
                 fullWidth
-                
                 label="Email"
-                
-                
                 value={user.email}
                 onChange={(event) => setUser({...user,email: event.target.value})}
-               
-
               />
                
               <TextField
@@ -211,17 +207,12 @@ const Register = () => {
                 margin="normal"
                 required
                 fullWidth
-                
-                
                 label="Username"
                 name="username"
                 autoComplete="username"
                 value={user.username}
                 onChange = {(event) => setUser({...user,username: event.target.value})}
-              
               />
-
-               
               <TextField
                 variant="outlined"
                 error = {errorPassword}
@@ -233,7 +224,6 @@ const Register = () => {
                 name="password"
                 label="Password"
                 type="password"
-                
                 autoComplete="current-password"
                 value={user.password}
                 onChange={(event) => setUser({...user,password:event.target.value})}
@@ -251,7 +241,6 @@ const Register = () => {
                   variant="contained"
                   color="success"
                   onClick={handleRegister}
-                  
                 >
                   Register
                 </Button>

@@ -23,7 +23,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.post('http://ec2-44-202-17-163.compute-1.amazonaws.com:3001/api/endpoints/login',user)
+    axios.post('http://localhost:3001/api/endpoints/login',user)
       .then(res => {
         window.localStorage.setItem('authUser', JSON.stringify(res.data))
         if(res.data.rol === 'user'){
@@ -66,8 +66,9 @@ const Login = () => {
               alignItems: 'center',
             }}
           >
-            <Typography component="h1" variant="h5">
-              Sign in
+            <img src="https://github.com/EzequielCastilloH/T1_C-out_E-commerce/blob/main/06-Code/E-commerce%20Code/JAVA/web/img/logo.png?raw=true" width="200" height="200"/>
+            <Typography component="h3" variant="h3">
+              Login
             </Typography>
             <Box component="form" noValidate sx={{ mt: 1 }}>
               <TextField

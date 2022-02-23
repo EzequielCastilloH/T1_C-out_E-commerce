@@ -10,6 +10,7 @@ import ErrorPage from '../public/ErrorPage'
 import Modal from '../utils/shopModal'
 import { brown } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
+import Banner from '../utils/Banner';
 
 const DessertsPage = () => {
     const [products, setProducts] = useState([])
@@ -26,7 +27,7 @@ const DessertsPage = () => {
         }
     },[])
 
-    document.title = "Desserts"
+    document.title = "Bakery"
 
     useEffect(() => {
         setRol(user.rol)
@@ -75,6 +76,7 @@ const DessertsPage = () => {
     const renderDessertComponent = () => {
         return(
             <MainUserPage>
+                <Banner linkImage="https://t4.ftcdn.net/jpg/02/27/88/83/240_F_227888305_Ji8fPeditvKC5VAcyYSGZ4SYxOIA2FJC.jpg" description="Bakery"/>
                 <Grid container spacing={3} sx={{m:'5px'}}>
                     {
                         products.map(p => 
