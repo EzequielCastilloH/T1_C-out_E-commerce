@@ -12,7 +12,6 @@ import React,{useState} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import Notification from '../utils/Alert'
 import axios from 'axios'
-import Example from './Example'
 
 const Login = () => {
   const theme = createTheme();
@@ -49,14 +48,14 @@ const Login = () => {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: '../img/pan.jpg',
+            backgroundImage: 'url(https://images.unsplash.com/photo-1530610476181-d83430b64dcd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y3JvaXNzYW50fGVufDB8fDB8fA%3D%3D&w=1000&q=80)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
-        ><Example></Example></Grid>
+        />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
