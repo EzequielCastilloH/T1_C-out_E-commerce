@@ -10,6 +10,7 @@ import InvoicePage from './admin/Invoices'
 import axios from 'axios'
 import InventoryPage from './admin/Inventory'
 import {ProductContext} from './utils/ProductContext'
+import Example from './public/Example'
 
 const App = () => {
   const [ productsToShop, setProductsToShop ] = useState([])
